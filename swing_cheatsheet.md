@@ -124,3 +124,92 @@ JLabel label = new JLabel("""
     </html>""".stripLeading());
 ```
 
+## Replicating CSS classes as methods in a styling class
+
+Defining style classes in CSS
+```css
+.title {
+    background-color: cyan;
+    font-family: 'Verdana';
+    font-weight: bold;
+    font-size: 20;
+}
+
+.button {
+    border: 1px solid black;
+    background-color: orange;
+    font-family: 'Verdana';
+    font-style: italic;
+    font-size: 25;
+    display: block;
+}
+```
+
+Similar implementation using enum:
+```Java
+public enum ClassList {
+    TITLE {
+        @Override
+        public void add(JComponent c) {
+            c.setBackground(Color.CYAN);
+            c.setFont(new Font("Verdana", Font.BOLD, 20));
+        }
+    },
+
+    BUTTON {
+        @Override
+        public void add(JComponent c) {
+            c.setBorder(BorderFactory.createEtchedBorder());
+            c.setBackground(Color.ORANGE);
+            c.setFont(new Font("Verdana", Font.ITALIC, 25));
+            c.setVisible(true);
+        }
+    };
+
+    public abstract void add(JComponent c);
+}
+```
+
+Applying style classes to elements
+```JavaScript
+btn.classList.add('button');
+```
+```Java
+ClassList.BUTTON.add(btn);
+```
+
+## Replicating CSS variables using enum
+
+Defining colour variables in CSS
+```CSS
+:root {
+    --main-bg-colour: rgb(240, 220, 220);
+    --main-btn-colour: rgb(230, 20, 88);
+}
+```
+
+Similar implementation using enum
+```Java
+public enum StyleVariable {
+    MAIN_BG_COLOUR(new Color(240, 220, 220)),
+    MAIN_BTN_COLOUR(new Color(230, 20, 88));
+    
+    private final Color rgbColour;
+
+    private StyleVariable(Color rgbColour) {
+        this.rgbColour = rgbColour;
+    }
+
+    public Color get() {
+        return rgbColour;
+    }
+}
+```
+
+Using defined variables for colours
+```CSS
+background-color: var(--main-btn-colour);
+```
+```Java
+c.setBackground(StyleVariable.MAIN_BTN_COLOUR.get());
+```
