@@ -396,7 +396,7 @@ In the `BorderFactory` object, the method `createCompouindBorder(Border outsideB
 Hence in swing, using `createCompoundBorder` and `createLineBorder`, as follows:
 ```Java
 JPanel panel = new JPanel();
-panel.setBorder(BorderFactory.createCompoundBOrder(
+panel.setBorder(BorderFactory.createCompoundBorder(
     BorderFactory.createEmptyBorder(20, 20, 20, 20), // margin (outside border)
     Border.createCompoundBorder(
         BorderFactory.createLineBorder(Color.GRAY, 1), // line border us outside border of inside border
