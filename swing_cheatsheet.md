@@ -206,10 +206,65 @@ public enum StyleVariable {
 }
 ```
 
+Style variables can also be fonts (or possibly borders in the future).
+```Java
+public enum StyleVariable {
+    MAIN_BG_COLOUR(new Color(240, 220, 220)),
+    MAIN_BTN_COLOUR(new Color(230, 20, 88)),
+
+    MAIN_FONT(new Font("Futura", Font.ITALIC, 30));
+    
+    private Color rgbColour;
+    private Font font;
+
+    private StyleVariable(Color rgbColour) {
+        this.rgbColour = rgbColour;
+    }
+
+    private StyleVariable(Font font) {
+        this.font = font;
+    }
+
+    public Color colour() {
+        return rgbColour;
+    }
+
+    public Font font() {
+        return font;
+    }
+}
+```
+
 Using defined variables for colours
 ```CSS
 background-color: var(--main-btn-colour);
 ```
 ```Java
 c.setBackground(StyleVariable.MAIN_BTN_COLOUR.get());
+```
+
+## Adding multiple CSS classes to a component
+
+This method enables adding multiple CSS classes at once
+```java
+@SafeVarargs
+public static final void add(JComponent c, String... classes) {
+    for (String cl : classes) {
+        for (ClassList l : ClassList.values()) {
+            if (l.name().equals(cl)) {
+                l.add(c);
+            }
+        }
+    }
+}
+```
+
+It can be called like this. Note that the latter declared parameters take precedence, in this case `BUTTON_EXTRA` overrides any same styling elements set in `BUTTON`.
+```java
+ClassList.add(btn, "BUTTON", "BUTTON_EXTRA");
+```
+
+Equivalent to doing on JavaScript:
+```JavaScript
+btn.classList.add('button', 'button-extra');
 ```
