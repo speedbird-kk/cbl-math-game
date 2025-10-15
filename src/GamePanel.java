@@ -1,4 +1,5 @@
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -42,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-        this.setLayout(null);
+        this.setLayout(new BorderLayout());
         this.setVisible(true);
     }
 
@@ -57,7 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
         long lastCurrentTimeMs = System.currentTimeMillis();
         while (gameThread != null) {
             long currentTimeMs = System.currentTimeMillis();
-            long timeElapsedMs = currentTimeMs - lastCurrentTimeMs;
+            int timeElapsedMs = (int) (currentTimeMs - lastCurrentTimeMs);
             lastCurrentTimeMs = currentTimeMs;
 
             updateGame(timeElapsedMs);
@@ -79,7 +80,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void updateGame(long timeElapsedMs) {
+    public void updateGame(int timeElapsedMs) {
         if (mode == 0) {
             loadMode1();
         }
@@ -102,13 +103,15 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void loadMode1() {
         if (titleScreenPanel == null) {
-            titleScreenPanel = new TitleScreenPanel();
+            titleScreenPanel = new TitleScreenPanel(tileWidth, tileHeight);
         }
+        this.setLayout(new BorderLayout());
         this.add(titleScreenPanel);
         mode = 1;
     }
     public void unloadMode1() {
         this.remove(titleScreenPanel);
+        this.setLayout(null);
     }
 
     public void loadMode2() {
