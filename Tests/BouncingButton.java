@@ -9,6 +9,7 @@ class BouncingButton {
         JFrame frame = new JFrame();
         frame.setSize(1000, 600);
         frame.setVisible(true);
+        frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
         int contentPaneWidth = frame.getContentPane().getWidth();
         int contentPaneHeitght = frame.getContentPane().getHeight();
         JButton button = new JButton("text within the button");

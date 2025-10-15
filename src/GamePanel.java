@@ -3,12 +3,17 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Toolkit;
 
+import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel implements Runnable {
-    final int screenWidth = 300;
-    final int screenHeight = 300;
+    final Dimension frameSize = new Dimension(300, 300);
+    final int screenWidth = (int) frameSize.getWidth();
+    final int screenHeight = (int) frameSize.getHeight();
+    int tileWidth;
+    int tileHeight;
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
@@ -18,12 +23,22 @@ public class GamePanel extends JPanel implements Runnable {
     int playerSpeed = 4;
     int FPS = 60;
 
+    Lane lane1;
+
+    int mode = 0;
+
     public GamePanel() {
-        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        frameSize.setSize(screenSize.getWidth() / 2, screenSize.getHeight() / 2);
+        tileWidth = (int) frameSize.getWidth() / 16;
+        tileHeight = (int) frameSize.getHeight() / 9;
+
+        this.setPreferredSize(frameSize);
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        this.setLayout(null);
     }
 
     public void startGameThread() {
@@ -38,7 +53,10 @@ public class GamePanel extends JPanel implements Runnable {
             long currentTime = System.nanoTime();
 
             update();
-            repaint();
+            this.revalidate();
+            this.repaint();
+
+            this.setVisible(true);
 
             try {
                 double remainingTime = nextDrawTime - System.nanoTime();
@@ -53,6 +71,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
     }
+    public void loadMode1() {}
 
     public void update() {
         if (keyH.wPressed == true) {
@@ -61,10 +80,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
+        // super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.white);
-        g2.fillRect(playerX, playerY, 30, 30);
+        // Graphics2D g2 = (Graphics2D) g;
+        // g2.setColor(Color.white);
+        // g2.fillRect(playerX, playerY, 30, 30);
     }
 }
