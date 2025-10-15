@@ -54,10 +54,13 @@ public class GamePanel extends JPanel implements Runnable {
     @Override public void run() { // This gets called repeatedly when gameThread.start() is ran
         double drawInterval = 1000000000 / FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
+        long lastCurrentTimeMs = System.currentTimeMillis();
         while (gameThread != null) {
-            long currentTime = System.nanoTime();
+            long currentTimeMs = System.currentTimeMillis();
+            long timeElapsedMs = currentTimeMs - lastCurrentTimeMs;
+            lastCurrentTimeMs = currentTimeMs;
 
-            updateGame();
+            updateGame(timeElapsedMs);
 
             this.revalidate();
             this.repaint();
@@ -76,7 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void updateGame() {
+    public void updateGame(long timeElapsedMs) {
         if (mode == 0) {
             loadMode1();
         }
@@ -85,6 +88,7 @@ public class GamePanel extends JPanel implements Runnable {
                 unloadMode1();
                 loadMode2();
             }
+            titleScreenPanel.update(timeElapsedMs);
         }
     }
 
