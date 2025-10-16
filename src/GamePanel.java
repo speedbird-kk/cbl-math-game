@@ -86,7 +86,10 @@ public class GamePanel extends JPanel implements Runnable {
                 unloadMode1();
                 loadMode2();
             }
-            titleScreenPanel.update(timeElapsedMs);
+            titleScreenPanel.timeUpdate(timeElapsedMs);
+        }
+        if (mode == 2) {
+            mode1Panel.timeUpdate(timeElapsedMs);
         }
     }
 

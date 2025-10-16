@@ -11,5 +11,5 @@ public class Lane extends JPanel {
         this.setBackground(Color.BLUE);
     }
 
-    public void update() {}
+    public void timeUpdate(int timeElapsedMs) {}
 }

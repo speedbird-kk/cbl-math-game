@@ -28,10 +28,10 @@ public class Mode1Panel extends JPanel {
         this.add(lane4);
     }
 
-    void update() {
-        lane1.update();
-        lane2.update();
-        lane3.update();
-        lane4.update();
+    void timeUpdate(int timeElapsedMs) {
+        lane1.timeUpdate(timeElapsedMs);
+        lane2.timeUpdate(timeElapsedMs);
+        lane3.timeUpdate(timeElapsedMs);
+        lane4.timeUpdate(timeElapsedMs);
     }
 }

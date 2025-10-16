@@ -18,8 +18,8 @@ public class TitleScreenPanel extends JPanel {
         titleButton = new TitleButton(tileWidth, tileHeight);
         this.add(titleButton);
     }
-    public void update(int t) {
-        titleButton.update(t);
+    public void timeUpdate(int t) {
+        titleButton.timeUpdate(t);
     }
 }
 class TitleButton extends JButton {
@@ -33,7 +33,7 @@ class TitleButton extends JButton {
         this.setBounds(tileWidth * 6, tileHeight * 4, tileWidth * 4, tileHeight);
         this.setFocusable(false);
     }
-    public void update(int t) {
+    public void timeUpdate(int t) {
         animationTime += t;
         double angle = (animationTime % 2000) / 2000.0 * 2 * Math.PI;
         double sinT = Math.sin(angle);
