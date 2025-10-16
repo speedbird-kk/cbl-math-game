@@ -82,9 +82,10 @@ public class GamePanel extends JPanel implements Runnable {
             loadState1();
         }
         if (state == 1) {
-            if (keyH.wPressed == true) {
+            if (titleScreenPanel.titleButton.isPressed == true) {
                 unloadState1();
                 loadState2();
+                titleScreenPanel.titleButton.isPressed = false;
             }
             titleScreenPanel.timeUpdate(timeElapsedMs);
         }

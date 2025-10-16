@@ -1,5 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -26,12 +29,20 @@ class TitleButton extends JButton {
     long animationTime = 0;
     int tileWidth = 0;
     int tileHeight = 0;
+    boolean isPressed = false;
 
     TitleButton(int tileWidth, int tileHeight) {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.setBounds(tileWidth * 6, tileHeight * 4, tileWidth * 4, tileHeight);
         this.setFocusable(false);
+        this.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                isPressed = true;
+                // TODO Auto-generated method stub
+            }
+        });
     }
     public void timeUpdate(int t) {
         animationTime += t;
