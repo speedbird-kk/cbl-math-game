@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
     int playerY = 100;
     int playerSpeed = 4;
     int FPS = 60;
-    int mode = 0;
+    int screen = 0;
 
     TitleScreenPanel titleScreenPanel;
     Mode1Panel mode1Panel;
@@ -78,17 +78,21 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void updateGame(int timeElapsedMs) {
-        if (mode == 0) {
+        if (screen == 0) {
             loadMode1();
         }
-        if (mode == 1) {
+        if (screen == 1) {
             if (keyH.wPressed == true) {
                 unloadMode1();
                 loadMode2();
             }
             titleScreenPanel.timeUpdate(timeElapsedMs);
         }
-        if (mode == 2) {
+        if (screen == 2) {
+            if (keyH.escapePressed == true) {
+                unloadMode2();
+                loadMode1();
+            }
             mode1Panel.timeUpdate(timeElapsedMs);
         }
     }
@@ -106,7 +110,7 @@ public class GamePanel extends JPanel implements Runnable {
             titleScreenPanel = new TitleScreenPanel(tileWidth, tileHeight);
         }
         this.add(titleScreenPanel);
-        mode = 1;
+        screen = 1;
     }
     public void unloadMode1() {
         this.remove(titleScreenPanel);
@@ -117,6 +121,9 @@ public class GamePanel extends JPanel implements Runnable {
             mode1Panel = new Mode1Panel(tileWidth, tileHeight);
         }
         this.add(mode1Panel);
-        mode = 2;
+        screen = 2;
+    }
+    public void unloadMode2() {
+        this.remove(mode1Panel);
     }
 }

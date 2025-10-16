@@ -3,6 +3,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     public boolean wPressed;
+    public boolean escapePressed;
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -13,6 +14,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_W) {
             wPressed = true;
         }
+        if (code == KeyEvent.VK_ESCAPE) {
+            escapePressed = true;
+        }
     }
 
     @Override
@@ -20,6 +24,9 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
         if (code == KeyEvent.VK_W) {
             wPressed = false;
+        }
+        if (code == KeyEvent.VK_ESCAPE) {
+            escapePressed = false;
         }
     }
 }
