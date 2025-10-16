@@ -16,7 +16,7 @@ public class TitleScreenPanel extends JPanel {
         this.tileHeight = tileHeight;
         this.setLayout(null);
         titleButton = new TitleButton(tileWidth, tileHeight);
-        this.add(titleButton, BorderLayout.CENTER);
+        this.add(titleButton);
     }
     public void update(int t) {
         titleButton.update(t);
@@ -31,6 +31,7 @@ class TitleButton extends JButton {
         this.tileWidth = tileWidth;
         this.tileHeight = tileHeight;
         this.setBounds(tileWidth * 6, tileHeight * 4, tileWidth * 4, tileHeight);
+        this.setFocusable(false);
     }
     public void update(int t) {
         animationTime += t;

@@ -10,4 +10,6 @@ public class Lane extends JPanel {
         this.setBounds(x, y, tileWidth * 2, tileHeight * 7);
         this.setBackground(Color.BLUE);
     }
+
+    public void update() {}
 }

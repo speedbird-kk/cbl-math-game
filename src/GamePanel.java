@@ -26,11 +26,8 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     int mode = 0;
 
-    Lane lane1;
-    Lane lane2;
-    Lane lane3;
-    Lane lane4;
     TitleScreenPanel titleScreenPanel;
+    Mode1Panel mode1Panel;
 
     public GamePanel() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -105,31 +102,18 @@ public class GamePanel extends JPanel implements Runnable {
         if (titleScreenPanel == null) {
             titleScreenPanel = new TitleScreenPanel(tileWidth, tileHeight);
         }
-        this.setLayout(new BorderLayout());
         this.add(titleScreenPanel);
         mode = 1;
     }
     public void unloadMode1() {
         this.remove(titleScreenPanel);
-        this.setLayout(null);
     }
 
     public void loadMode2() {
-        if (lane1 == null) {
-            int laneX = tileWidth;
-            lane1 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
-            laneX += tileWidth * 2;
-            lane2 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
-            laneX += tileWidth * 2;
-            lane3 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
-            laneX += tileWidth * 2;
-            lane4 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
+        if (mode1Panel == null) {
+            mode1Panel = new Mode1Panel(tileWidth, tileHeight);
         }
-        this.add(lane1);
-        this.add(lane2);
-        this.add(lane3);
-        this.add(lane4);
-
+        this.add(mode1Panel);
         mode = 2;
     }
 }
