@@ -24,7 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
     int playerY = 100;
     int playerSpeed = 4;
     int FPS = 60;
-    int screen = 0;
+    int state = 0;
 
     TitleScreenPanel titleScreenPanel;
     Mode1Panel mode1Panel;
@@ -78,20 +78,20 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void updateGame(int timeElapsedMs) {
-        if (screen == 0) {
-            loadMode1();
+        if (state == 0) {
+            loadState1();
         }
-        if (screen == 1) {
+        if (state == 1) {
             if (keyH.wPressed == true) {
-                unloadMode1();
-                loadMode2();
+                unloadState1();
+                loadState2();
             }
             titleScreenPanel.timeUpdate(timeElapsedMs);
         }
-        if (screen == 2) {
+        if (state == 2) {
             if (keyH.escapePressed == true) {
-                unloadMode2();
-                loadMode1();
+                unloadState2();
+                loadState1();
             }
             mode1Panel.timeUpdate(timeElapsedMs);
         }
@@ -105,25 +105,25 @@ public class GamePanel extends JPanel implements Runnable {
     //     // g2.fillRect(playerX, playerY, 30, 30);
     // }
 
-    public void loadMode1() {
+    public void loadState1() {
         if (titleScreenPanel == null) {
             titleScreenPanel = new TitleScreenPanel(tileWidth, tileHeight);
         }
         this.add(titleScreenPanel);
-        screen = 1;
+        state = 1;
     }
-    public void unloadMode1() {
+    public void unloadState1() {
         this.remove(titleScreenPanel);
     }
 
-    public void loadMode2() {
+    public void loadState2() {
         if (mode1Panel == null) {
             mode1Panel = new Mode1Panel(tileWidth, tileHeight);
         }
         this.add(mode1Panel);
-        screen = 2;
+        state = 2;
     }
-    public void unloadMode2() {
+    public void unloadState2() {
         this.remove(mode1Panel);
     }
 }
