@@ -8,17 +8,15 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class TitleScreenPanel extends JPanel {
-    int tileWidth = 0;
-    int tileHeight = 0;
+    GameContext gameContext;
 
     TitleButton titleButton;
 
-    TitleScreenPanel(int tileWidth, int tileHeight) {
+    TitleScreenPanel(GameContext gameContext) {
+        this.gameContext = gameContext;
         this.setBackground(Color.CYAN);
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
         this.setLayout(null);
-        titleButton = new TitleButton(tileWidth, tileHeight);
+        titleButton = new TitleButton(gameContext);
         this.add(titleButton);
     }
     public void timeUpdate(int t) {
@@ -26,14 +24,14 @@ public class TitleScreenPanel extends JPanel {
     }
 }
 class TitleButton extends JButton {
+    GameContext gameContext;
     long animationTime = 0;
-    int tileWidth = 0;
-    int tileHeight = 0;
     boolean isPressed = false;
 
-    TitleButton(int tileWidth, int tileHeight) {
-        this.tileWidth = tileWidth;
-        this.tileHeight = tileHeight;
+    TitleButton(GameContext gameContext) {
+        this.gameContext = gameContext;
+        int tileWidth = gameContext.tileWidth;
+        int tileHeight = gameContext.tileHeight;
         this.setBounds(tileWidth * 6, tileHeight * 4, tileWidth * 4, tileHeight);
         this.setFocusable(false);
         this.addActionListener(new ActionListener() {
@@ -45,6 +43,9 @@ class TitleButton extends JButton {
         });
     }
     public void timeUpdate(int t) {
+        int tileWidth = gameContext.tileWidth;
+        int tileHeight = gameContext.tileHeight;
+
         animationTime += t;
         double angle = (animationTime % 2000) / 2000.0 * 2 * Math.PI;
         double sinT = Math.sin(angle);

@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class Mode1Panel extends JPanel {
+    GameContext gameContext;
+
     Lane lane1;
     Lane lane2;
     Lane lane3;
@@ -17,7 +19,8 @@ public class Mode1Panel extends JPanel {
     JLabel levelLabel;
     HeartDisplay heartDisplay;
 
-    Mode1Panel(KeyHandler keyH, int tileWidth, int tileHeight) {
+    Mode1Panel(KeyHandler keyH, GameContext gameContext) {
+        this.gameContext = gameContext;
         this.setLayout(null);
         this.addKeyListener(keyH);
         this.setFocusable(true);
@@ -30,6 +33,8 @@ public class Mode1Panel extends JPanel {
             }
         });
 
+        int tileWidth = gameContext.tileWidth;
+        int tileHeight = gameContext.tileHeight;
         int laneX = tileWidth;
         lane1 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
         laneX += tileWidth * 2;
@@ -68,6 +73,8 @@ public class Mode1Panel extends JPanel {
 }
 
 class HeartDisplay extends JPanel {
+    GameContext gameContext;
+
     int heartWidth;
     int heartHeight;
     int sizeInHearts;
@@ -75,14 +82,18 @@ class HeartDisplay extends JPanel {
 
     Queue<Heart> hearts;
 
-    HeartDisplay(int tileWidth, int tileHeight, int numberOfHearts) {
-        heartWidth = tileWidth;
-        heartHeight = tileHeight;
+    HeartDisplay(GameContext gameContext) {
+        this.gameContext = gameContext;
+        heartWidth = gameContext.tileWidth;
+        heartHeight = gameContext.tileHeight;
         this.sizeInHearts = numberOfHearts;
 
-        this.setBounds(15 * tileWidth - numberOfHearts * tileWidth, tileHeight,
-                numberOfHearts * tileWidth, tileHeight);
+        // TODO(bogdan): Find a nicer way to compute this line
+        this.setBounds(15 * gameContext.tileWidth - numberOfHearts * gameContext.tileWidth,
+                gameContext.tileHeight, numberOfHearts * gameContext.tileWidth,
+                gameContext.tileHeight);
     }
+    // TODO(bogdan): Rethink this so it works with the game context, unify in one update call
     public void addHeart() {
         Heart heart = new Heart();
         heart.setBounds(heartWidth * sizeInHearts - heartWidth * numberOfHearts, 0, heartWidth,

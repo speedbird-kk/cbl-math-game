@@ -14,17 +14,11 @@ public class GamePanel extends JPanel implements Runnable {
     final Dimension frameSize = new Dimension(300, 300);
     final int screenWidth = (int) frameSize.getWidth();
     final int screenHeight = (int) frameSize.getHeight();
-    int tileWidth;
-    int tileHeight;
 
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
 
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
-    int FPS = 60;
-    int state = 0;
+    GameContext gameContext = new GameContext();
 
     TitleScreenPanel titleScreenPanel;
     Mode1Panel mode1Panel;
@@ -32,8 +26,8 @@ public class GamePanel extends JPanel implements Runnable {
     public GamePanel() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         frameSize.setSize(screenSize.getWidth() / 2, screenSize.getHeight() / 2);
-        tileWidth = (int) frameSize.getWidth() / 16;
-        tileHeight = (int) frameSize.getHeight() / 9;
+        gameContext.tileWidth = (int) frameSize.getWidth() / 16;
+        gameContext.tileHeight = (int) frameSize.getHeight() / 9;
 
         this.setPreferredSize(frameSize);
         this.setBackground(Color.WHITE);
@@ -42,6 +36,8 @@ public class GamePanel extends JPanel implements Runnable {
         this.setFocusable(true);
         this.setLayout(new BorderLayout());
         this.setVisible(true);
+
+        gameContext.FPS = 60;
     }
 
     public void startGameThread() {
@@ -50,7 +46,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     @Override public void run() { // This gets called repeatedly when gameThread.start() is ran
-        double drawInterval = 1000000000 / FPS;
+        double drawInterval = 1000000000 / gameContext.FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
         long lastCurrentTimeMs = System.currentTimeMillis();
         while (gameThread != null) {
@@ -78,10 +74,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void updateGame(int timeElapsedMs) {
-        if (state == 0) {
+        if (gameContext.state == 0) {
             loadState1();
         }
-        if (state == 1) {
+        if (gameContext.state == 1) {
             if (titleScreenPanel.titleButton.isPressed == true) {
                 unloadState1();
                 loadState2();
@@ -89,7 +85,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             titleScreenPanel.timeUpdate(timeElapsedMs);
         }
-        if (state == 2) {
+        if (gameContext.state == 2) {
             if (keyH.escapePressed == true) {
                 unloadState2();
                 loadState1();
@@ -98,20 +94,12 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    // public void paintComponent(Graphics g) {
-    //     // super.paintComponent(g);
-
-    //     // Graphics2D g2 = (Graphics2D) g;
-    //     // g2.setColor(Color.white);
-    //     // g2.fillRect(playerX, playerY, 30, 30);
-    // }
-
     public void loadState1() {
         if (titleScreenPanel == null) {
-            titleScreenPanel = new TitleScreenPanel(tileWidth, tileHeight);
+            titleScreenPanel = new TitleScreenPanel(gameContext);
         }
         this.add(titleScreenPanel);
-        state = 1;
+        gameContext.state = 1;
     }
     public void unloadState1() {
         this.remove(titleScreenPanel);
@@ -119,10 +107,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void loadState2() {
         if (mode1Panel == null) {
-            mode1Panel = new Mode1Panel(keyH, tileWidth, tileHeight);
+            mode1Panel = new Mode1Panel(keyH, gameContext);
         }
         this.add(mode1Panel);
-        state = 2;
+        gameContext.state = 2;
     }
     public void unloadState2() {
         this.remove(mode1Panel);
