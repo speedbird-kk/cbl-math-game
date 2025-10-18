@@ -119,7 +119,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void loadState2() {
         if (mode1Panel == null) {
-            mode1Panel = new Mode1Panel(tileWidth, tileHeight);
+            mode1Panel = new Mode1Panel(keyH, tileWidth, tileHeight);
         }
         this.add(mode1Panel);
         state = 2;
