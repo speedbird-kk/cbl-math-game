@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 public class Mode1Panel extends JPanel {
     GameContext gameContext;
 
+    int aux = 0;
+
     Lane lane1;
     Lane lane2;
     Lane lane3;
@@ -36,13 +38,13 @@ public class Mode1Panel extends JPanel {
         int tileWidth = gameContext.tileWidth;
         int tileHeight = gameContext.tileHeight;
         int laneX = tileWidth;
-        lane1 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
+        lane1 = new Lane(laneX, tileHeight, gameContext);
         laneX += tileWidth * 2;
-        lane2 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
+        lane2 = new Lane(laneX, tileHeight, gameContext);
         laneX += tileWidth * 2;
-        lane3 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
+        lane3 = new Lane(laneX, tileHeight, gameContext);
         laneX += tileWidth * 2;
-        lane4 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
+        lane4 = new Lane(laneX, tileHeight, gameContext);
 
         this.add(lane1);
         this.add(lane2);
@@ -65,10 +67,18 @@ public class Mode1Panel extends JPanel {
     }
 
     void timeUpdate(int timeElapsedMs) {
-        lane1.timeUpdate(timeElapsedMs);
-        lane2.timeUpdate(timeElapsedMs);
-        lane3.timeUpdate(timeElapsedMs);
-        lane4.timeUpdate(timeElapsedMs);
+        if (aux == 0) {
+            lane1.addBlock();
+            lane2.addBlock();
+            lane3.addBlock();
+            lane4.addBlock();
+            aux = 1;
+        }
+
+        lane1.timeUpdate(timeElapsedMs, gameContext);
+        lane2.timeUpdate(timeElapsedMs, gameContext);
+        lane3.timeUpdate(timeElapsedMs, gameContext);
+        lane4.timeUpdate(timeElapsedMs, gameContext);
     }
 }
 
@@ -94,19 +104,7 @@ class HeartDisplay extends JPanel {
                 gameContext.tileHeight);
     }
     // TODO(bogdan): Rethink this so it works with the game context, unify in one update call
-    public void addHeart() {
-        Heart heart = new Heart();
-        heart.setBounds(heartWidth * sizeInHearts - heartWidth * numberOfHearts, 0, heartWidth,
-                heartHeight);
-        hearts.add(heart);
-        this.add(heart);
-
-        numberOfHearts++;
-    }
-    public void removeHeart() {
-        Heart heart = hearts.poll();
-        this.remove(heart);
-    }
+    public void timeUpdate(int t, GameContext gameContext) {}
 
     class Heart extends JLabel {
         public void removeHeart() {}

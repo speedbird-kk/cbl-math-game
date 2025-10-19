@@ -18,16 +18,16 @@ public class GamePanel extends JPanel implements Runnable {
     KeyHandler keyH = new KeyHandler();
     Thread gameThread;
 
-    GameContext gameContext = new GameContext();
+    GameContext gameContext;
 
     TitleScreenPanel titleScreenPanel;
     Mode1Panel mode1Panel;
 
     public GamePanel() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frameSize.setSize(screenSize.getWidth() / 2, screenSize.getHeight() / 2);
-        gameContext.tileWidth = (int) frameSize.getWidth() / 16;
-        gameContext.tileHeight = (int) frameSize.getHeight() / 9;
+        frameSize.setSize(screenSize.getWidth(), screenSize.getHeight());
+        // frameSize.setSize(screenSize.getWidth() / 2, screenSize.getHeight() / 2);
+        gameContext = new GameContext(frameSize.getWidth(), frameSize.getHeight());
 
         this.setPreferredSize(frameSize);
         this.setBackground(Color.WHITE);
