@@ -43,6 +43,10 @@ public class Lane extends JPanel {
         blocks.add(block);
         this.add(block);
     }
+    public void removeBlock(Block block) {
+        blocks.remove(block);
+        this.remove(block);
+    }
 
     public void timeUpdate(int timeElapsedMs, GameContext GC) {
         for (Block block : blocks) {
@@ -64,7 +68,6 @@ class Block extends JPanel {
     public void timeUpdate(int t, GameContext GC) {
         double blockSpeed = (double) GC.blockTravelDistance / GC.blockTravelTimeS;
         y += (double) blockSpeed * t / 1000;
-        System.out.println(y);
 
         this.setLocation(this.x, (int) y);
     }

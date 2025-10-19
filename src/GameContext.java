@@ -20,7 +20,7 @@ public class GameContext {
     int blockWidth = 0;
     int blockHeight = 0;
 
-    int numberOfHearts = 0;
+    int InitialNumberOfHearts = 5;
 
     int blockTravelDistance = 0;
     int blockTravelTimeS = 15;

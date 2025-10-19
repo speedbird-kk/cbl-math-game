@@ -3,6 +3,7 @@ import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Queue;
 
 import javax.swing.JLabel;
@@ -10,19 +11,22 @@ import javax.swing.JPanel;
 
 public class Mode1Panel extends JPanel {
     GameContext gameContext;
+    KeyHandler keyH;
 
     int aux = 0;
+    int aux2 = 0;
+    int timePassed = 0;
+    int sign = 1;
 
-    Lane lane1;
-    Lane lane2;
-    Lane lane3;
-    Lane lane4;
+    ArrayList<Lane> lanes = new ArrayList<Lane>();
+
     JLabel scoreLabel;
     JLabel levelLabel;
     HeartDisplay heartDisplay;
 
     Mode1Panel(KeyHandler keyH, GameContext gameContext) {
         this.gameContext = gameContext;
+        this.keyH = keyH;
         this.setLayout(null);
         this.addKeyListener(keyH);
         this.setFocusable(true);
@@ -37,19 +41,14 @@ public class Mode1Panel extends JPanel {
 
         int tileWidth = gameContext.tileWidth;
         int tileHeight = gameContext.tileHeight;
-        int laneX = tileWidth;
-        lane1 = new Lane(laneX, tileHeight, gameContext);
-        laneX += tileWidth * 2;
-        lane2 = new Lane(laneX, tileHeight, gameContext);
-        laneX += tileWidth * 2;
-        lane3 = new Lane(laneX, tileHeight, gameContext);
-        laneX += tileWidth * 2;
-        lane4 = new Lane(laneX, tileHeight, gameContext);
 
-        this.add(lane1);
-        this.add(lane2);
-        this.add(lane3);
-        this.add(lane4);
+        int laneX = tileWidth;
+        for (int i = 0; i < 4; i++) {
+            Lane lane = new Lane(laneX, tileHeight, gameContext);
+            lanes.add(lane);
+            this.add(lane);
+            laneX += tileWidth * 2;
+        }
 
         scoreLabel = new JLabel();
         scoreLabel.setBounds(
@@ -64,49 +63,84 @@ public class Mode1Panel extends JPanel {
         levelLabel.setBackground(Color.RED);
         levelLabel.setOpaque(true);
         this.add(levelLabel);
+
+        heartDisplay = new HeartDisplay(gameContext);
+        this.add(heartDisplay);
     }
 
     void timeUpdate(int timeElapsedMs) {
+        timePassed += timeElapsedMs;
         if (aux == 0) {
-            lane1.addBlock();
-            lane2.addBlock();
-            lane3.addBlock();
-            lane4.addBlock();
+            for (Lane lane : lanes) {
+                lane.addBlock();
+            }
+            // lanes.get(0).addBlock();
             aux = 1;
         }
 
-        lane1.timeUpdate(timeElapsedMs, gameContext);
-        lane2.timeUpdate(timeElapsedMs, gameContext);
-        lane3.timeUpdate(timeElapsedMs, gameContext);
-        lane4.timeUpdate(timeElapsedMs, gameContext);
+        for (Lane lane : lanes) {
+            for (Block block : lane.blocks) {
+                block.timeUpdate(timeElapsedMs, gameContext);
+
+                if ((int) block.y > gameContext.blockTravelDistance) {
+                    System.out.println(block.y);
+                    lane.removeBlock(block);
+                    if (heartDisplay.numberOfHearts > 0) {
+                        heartDisplay.numberOfHearts--;
+                    }
+                }
+            }
+            lane.timeUpdate(timeElapsedMs, gameContext);
+        }
+
+        heartDisplay.timeUpdate(timeElapsedMs);
     }
 }
 
 class HeartDisplay extends JPanel {
     GameContext gameContext;
 
+    int panelWidth;
+    int panelHeight;
     int heartWidth;
     int heartHeight;
-    int sizeInHearts;
     int numberOfHearts = 0;
 
-    Queue<Heart> hearts;
+    ArrayDeque<Heart> hearts = new ArrayDeque<HeartDisplay.Heart>();
 
     HeartDisplay(GameContext gameContext) {
         this.gameContext = gameContext;
+        numberOfHearts = gameContext.InitialNumberOfHearts;
         heartWidth = gameContext.tileWidth;
         heartHeight = gameContext.tileHeight;
-        this.sizeInHearts = numberOfHearts;
+        panelWidth = 5 * heartWidth;
+        panelHeight = heartHeight;
 
         // TODO(bogdan): Find a nicer way to compute this line
-        this.setBounds(15 * gameContext.tileWidth - numberOfHearts * gameContext.tileWidth,
-                gameContext.tileHeight, numberOfHearts * gameContext.tileWidth,
-                gameContext.tileHeight);
+        this.setLayout(null);
+        this.setOpaque(false);
+        this.setBounds(15 * gameContext.tileWidth - panelWidth, gameContext.tileHeight, panelWidth,
+                panelHeight);
     }
     // TODO(bogdan): Rethink this so it works with the game context, unify in one update call
-    public void timeUpdate(int t, GameContext gameContext) {}
+    public void timeUpdate(int t) {
+        while (numberOfHearts > hearts.size()) {
+            int x = panelWidth - (1 + hearts.size()) * heartWidth;
+            Heart heart = new Heart(x, 0, heartWidth, heartHeight);
+            hearts.addFirst(heart);
+            this.add(heart);
+        }
+        while (numberOfHearts < hearts.size()) {
+            Heart heart = hearts.poll();
+            this.remove(heart);
+        }
+    }
 
     class Heart extends JLabel {
-        public void removeHeart() {}
+        Heart(int x, int y, int heartWidth, int heartHeight) {
+            this.setBounds(x, y, heartWidth, heartHeight);
+            this.setBackground(Color.GREEN);
+            this.setOpaque(true);
+        }
     }
 }
