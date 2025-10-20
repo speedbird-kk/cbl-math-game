@@ -16,12 +16,12 @@ public class Lane extends JPanel {
     GameContext gameContext;
     int tileWidth;
     int tileHeight;
-    int textFieldNumber = 0;
 
     JLabel label;
     JTextField textField;
 
     ArrayDeque<Block> blocks = new ArrayDeque<Block>();
+    ArrayDeque<Integer> submissions = new ArrayDeque<Integer>();
 
     Lane(int x, int y, GameContext gameContext) {
         this.gameContext = gameContext;
@@ -44,7 +44,9 @@ public class Lane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    textFieldNumber = Integer.parseInt(textField.getText().trim());
+                    int textFieldNumber = Integer.parseInt(textField.getText().trim());
+                    submissions.add(textFieldNumber);
+                    textField.setText("");
                     System.out.println("Number set to: " + textFieldNumber);
                 } catch (NumberFormatException ex) {
                     System.out.println("Not a valid number!");
@@ -52,9 +54,6 @@ public class Lane extends JPanel {
             }
         });
         this.add(textField);
-    }
-    public int getTextFieldNumber() {
-        return textFieldNumber;
     }
     public void addBlock(int number) {
         Block block = new Block(number, gameContext);

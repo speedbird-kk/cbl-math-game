@@ -79,7 +79,15 @@ public class Mode1Panel extends JPanel {
         }
 
         for (Lane lane : lanes) {
-            int enteredNumber = lane.getTextFieldNumber();
+            while (!lane.submissions.isEmpty()) {
+                int submission = lane.submissions.poll();
+                Block firstBlock = lane.blocks.peek();
+                if (firstBlock != null) {
+                    if (submission == firstBlock.number) {
+                        lane.removeBlock(firstBlock);
+                    }
+                }
+            }
             // System.out.println(enteredNumber);
             for (Block block : lane.blocks) {
                 block.timeUpdate(timeElapsedMs, gameContext);
