@@ -1,6 +1,9 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayDeque;
@@ -13,6 +16,7 @@ public class Lane extends JPanel {
     GameContext gameContext;
     int tileWidth;
     int tileHeight;
+    int textFieldNumber = 0;
 
     JLabel label;
     JTextField textField;
@@ -36,10 +40,24 @@ public class Lane extends JPanel {
         this.textField = new JTextField("hell0");
         textField.setBounds(
                 0, (int) (6.25 * tileHeight), this.getWidth(), (int) (0.75 * tileHeight));
+        textField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    textFieldNumber = Integer.parseInt(textField.getText().trim());
+                    System.out.println("Number set to: " + textFieldNumber);
+                } catch (NumberFormatException ex) {
+                    System.out.println("Not a valid number!");
+                }
+            }
+        });
         this.add(textField);
     }
-    public void addBlock() {
-        Block block = new Block(gameContext);
+    public int getTextFieldNumber() {
+        return textFieldNumber;
+    }
+    public void addBlock(int number) {
+        Block block = new Block(number, gameContext);
         blocks.add(block);
         this.add(block);
     }
@@ -58,16 +76,22 @@ public class Lane extends JPanel {
 class Block extends JPanel {
     double y;
     int x;
+    int number;
+    JLabel label;
 
-    Block(GameContext GC) {
+    Block(int number, GameContext GC) {
+        this.number = number;
+        label = new JLabel("" + number);
+        this.add(label, BorderLayout.CENTER);
+
         x = (GC.laneWidth - GC.blockWidth) / 2;
         y = 0;
         this.setBounds(x, (int) y, GC.blockWidth, GC.blockHeight);
         this.setBackground(Color.RED);
     }
     public void timeUpdate(int t, GameContext GC) {
-        double blockSpeed = (double) GC.blockTravelDistance / GC.blockTravelTimeS;
-        y += (double) blockSpeed * t / 1000;
+        double blockSpeed = (double) GC.blockTravelDistance / (double) GC.blockTravelTimeS;
+        y += blockSpeed * t / 1000.0;
 
         this.setLocation(this.x, (int) y);
     }

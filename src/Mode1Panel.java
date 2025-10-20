@@ -72,25 +72,25 @@ public class Mode1Panel extends JPanel {
         timePassed += timeElapsedMs;
         if (aux == 0) {
             for (Lane lane : lanes) {
-                lane.addBlock();
+                lane.addBlock(1);
             }
             // lanes.get(0).addBlock();
             aux = 1;
         }
 
         for (Lane lane : lanes) {
+            int enteredNumber = lane.getTextFieldNumber();
+            // System.out.println(enteredNumber);
             for (Block block : lane.blocks) {
                 block.timeUpdate(timeElapsedMs, gameContext);
 
                 if ((int) block.y > gameContext.blockTravelDistance) {
-                    System.out.println(block.y);
                     lane.removeBlock(block);
-                    if (heartDisplay.numberOfHearts > 0) {
-                        heartDisplay.numberOfHearts--;
+                    if (heartDisplay.getNumberOfHearts() > 0) {
+                        heartDisplay.removeHeart();
                     }
                 }
             }
-            lane.timeUpdate(timeElapsedMs, gameContext);
         }
 
         heartDisplay.timeUpdate(timeElapsedMs);
@@ -116,13 +116,29 @@ class HeartDisplay extends JPanel {
         panelWidth = 5 * heartWidth;
         panelHeight = heartHeight;
 
-        // TODO(bogdan): Find a nicer way to compute this line
         this.setLayout(null);
         this.setOpaque(false);
         this.setBounds(15 * gameContext.tileWidth - panelWidth, gameContext.tileHeight, panelWidth,
                 panelHeight);
     }
-    // TODO(bogdan): Rethink this so it works with the game context, unify in one update call
+
+    public void addHeart() {
+        numberOfHearts++;
+        if (numberOfHearts > panelWidth / heartWidth) {
+            System.out.println("Heart overflow!");
+        }
+    }
+    public void removeHeart() {
+        if (numberOfHearts > 0) {
+            numberOfHearts--;
+        } else {
+            System.out.println("Removed heart when hearts are 0!");
+        }
+    }
+    public int getNumberOfHearts() {
+        return numberOfHearts;
+    }
+
     public void timeUpdate(int t) {
         while (numberOfHearts > hearts.size()) {
             int x = panelWidth - (1 + hearts.size()) * heartWidth;

@@ -23,7 +23,7 @@ public class GameContext {
     int InitialNumberOfHearts = 5;
 
     int blockTravelDistance = 0;
-    int blockTravelTimeS = 15;
+    int blockTravelTimeS = 20;
 
     GameContext(double frameWidth, double frameHeight) {
         screenWidth = (int) frameWidth;
