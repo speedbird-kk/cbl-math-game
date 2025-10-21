@@ -9,6 +9,11 @@ public class ProductLane extends Lane {
         operationSymbol = "×";
     }
 
+    @Override
+    public boolean checkResponse() {
+        return response * multiplicand == currentBlock.getNumber();
+    }
+
     public int getMultiplicand() {
         return multiplicand;
     }

@@ -9,6 +9,10 @@ public class DifferenceLane extends Lane {
         operationSymbol = "−";
     }
 
+    public boolean checkResponse() {
+        return response - subtrahend == currentBlock.getNumber();
+    }
+
     public int getSubtrahend() {
         return subtrahend;
     }

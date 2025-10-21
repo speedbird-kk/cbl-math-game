@@ -9,6 +9,11 @@ public class QuotientLane extends Lane {
         operationSymbol = "÷";
     }
 
+    @Override
+    public boolean checkResponse() {
+        return response / divisor == currentBlock.getNumber();
+    }
+
     public int getDivisor() {
         return divisor;
     }

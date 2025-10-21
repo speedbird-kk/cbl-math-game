@@ -9,6 +9,11 @@ public class SumLane extends Lane {
         operationSymbol = "+";
     }
 
+    @Override
+    public boolean checkResponse() {
+        return response + summand == currentBlock.getNumber();
+    }
+
     public int getSummand() {
         return summand;
     }
