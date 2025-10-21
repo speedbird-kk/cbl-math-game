@@ -34,7 +34,7 @@ public class Lane extends JPanel {
         this.label = new JLabel("Hi");
         label.setBounds(0, (int) (5.5 * tileHeight), this.getWidth(), (int) (0.75 * tileHeight));
         label.setOpaque(true);
-        label.setBackground(Color.GREEN);
+        label.setBackground(gameContext.laneLabelColor);
         this.add(label);
 
         this.textField = new JTextField("hell0");
@@ -86,7 +86,7 @@ class Block extends JPanel {
         x = (GC.laneWidth - GC.blockWidth) / 2;
         y = 0;
         this.setBounds(x, (int) y, GC.blockWidth, GC.blockHeight);
-        this.setBackground(Color.RED);
+        this.setBackground(GC.squareColor);
     }
     public void timeUpdate(int t, GameContext GC) {
         double blockSpeed = (double) GC.blockTravelDistance / (double) GC.blockTravelTimeS;

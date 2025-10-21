@@ -5,6 +5,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Queue;
+import java.util.Random;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,11 +13,6 @@ import javax.swing.JPanel;
 public class Mode1Panel extends JPanel {
     GameContext gameContext;
     KeyHandler keyH;
-
-    int aux = 0;
-    int aux2 = 0;
-    int timePassed = 0;
-    int sign = 1;
 
     ArrayList<Lane> lanes = new ArrayList<Lane>();
 
@@ -30,7 +26,7 @@ public class Mode1Panel extends JPanel {
         this.setLayout(null);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-        this.setBackground(Color.magenta);
+        this.setBackground(gameContext.mode1BackgroundColor);
 
         this.addMouseListener(new MouseAdapter() {
             @Override
@@ -68,14 +64,35 @@ public class Mode1Panel extends JPanel {
         this.add(heartDisplay);
     }
 
+    Random random = new Random();
+    int aux = 0;
+    int aux2 = 0;
+    int timePassedMs = 0;
+    int levelTimePassedMs = 0;
+    int sign = 1;
+    int level = 0;
+    ArrayDeque<Integer> numbersLeft = new ArrayDeque<Integer>();
+
     void timeUpdate(int timeElapsedMs) {
-        timePassed += timeElapsedMs;
-        if (aux == 0) {
-            for (Lane lane : lanes) {
-                lane.addBlock(1);
+        timePassedMs += timeElapsedMs;
+        levelTimePassedMs += timeElapsedMs;
+
+        if (numbersLeft.isEmpty()) {
+            level++;
+            levelTimePassedMs = 0;
+            aux = 0;
+            gameContext.blockTravelTimeS -= 5;
+            levelLabel.setText("" + level);
+            for (int i = 0; i < 5 * level; i++) {
+                numbersLeft.add(random.nextInt(5 * level));
             }
-            // lanes.get(0).addBlock();
-            aux = 1;
+        }
+
+        if (levelTimePassedMs > aux * 5000) {
+            Lane lane = lanes.get(random.nextInt(4));
+            lane.addBlock(numbersLeft.poll());
+
+            aux++;
         }
 
         for (Lane lane : lanes) {

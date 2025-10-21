@@ -1,3 +1,5 @@
+import java.awt.Color;
+
 public class GameContext {
     int FPS = 0;
     int state = 0;
@@ -19,6 +21,11 @@ public class GameContext {
 
     int blockWidth = 0;
     int blockHeight = 0;
+
+    Color titleScreenBackgroundColor = Color.CYAN;
+    Color mode1BackgroundColor = Color.WHITE;
+    Color squareColor = Color.RED;
+    Color laneLabelColor = Color.GREEN;
 
     int InitialNumberOfHearts = 5;
 

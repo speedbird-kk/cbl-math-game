@@ -14,7 +14,7 @@ public class TitleScreenPanel extends JPanel {
 
     TitleScreenPanel(GameContext gameContext) {
         this.gameContext = gameContext;
-        this.setBackground(Color.CYAN);
+        this.setBackground(gameContext.titleScreenBackgroundColor);
         this.setLayout(null);
         titleButton = new TitleButton(gameContext);
         this.add(titleButton);
