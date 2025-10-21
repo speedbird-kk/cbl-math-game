@@ -2,6 +2,6 @@ package Experimentation.Windows;
 
 import javax.swing.JFrame;
 
-public interface GameWindow {
-    public static JFrame window;
+public abstract class GameWindow {
+    protected static JFrame window;
 }

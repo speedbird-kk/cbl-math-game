@@ -1,4 +1,4 @@
-package Experimentation.Factory;
+package Experimentation.LaneFactory;
 
 import Experimentation.Components.Lane;
 import Experimentation.Components.SumLane;

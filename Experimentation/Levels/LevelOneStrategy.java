@@ -15,6 +15,6 @@ public class LevelOneStrategy implements LevelStrategy {
     }
 
     public void setProductLaneNumbers() {
-
+        
     }
 }
