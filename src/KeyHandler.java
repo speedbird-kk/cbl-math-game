@@ -4,6 +4,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
     public boolean wPressed;
     public boolean escapePressed;
+    public boolean tabActionRequest = false;
 
     @Override
     public void keyTyped(KeyEvent e) {}
@@ -16,6 +17,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_ESCAPE) {
             escapePressed = true;
+        }
+        if (code == KeyEvent.VK_TAB) {
+            tabActionRequest = true;
         }
     }
 

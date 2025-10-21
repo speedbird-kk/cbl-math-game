@@ -25,8 +25,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public GamePanel() {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        frameSize.setSize(screenSize.getWidth(), screenSize.getHeight());
-        // frameSize.setSize(screenSize.getWidth() / 2, screenSize.getHeight() / 2);
+        // frameSize.setSize(screenSize.getWidth(), screenSize.getHeight());
+        frameSize.setSize(screenSize.getWidth() / 2, screenSize.getHeight() / 2);
         gameContext = new GameContext(frameSize.getWidth(), frameSize.getHeight());
 
         this.setPreferredSize(frameSize);

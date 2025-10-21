@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayDeque;
@@ -7,8 +8,15 @@ import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Random;
 
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 public class Mode1Panel extends JPanel {
     GameContext gameContext;
@@ -27,6 +35,36 @@ public class Mode1Panel extends JPanel {
         this.addKeyListener(keyH);
         this.setFocusable(true);
         this.setBackground(gameContext.mode1BackgroundColor);
+        this.setFocusTraversalKeysEnabled(false);
+
+        // Get the InputMap that applies when a child has focus
+        InputMap inputMap = this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        ActionMap actionMap = this.getActionMap();
+
+        // TAB Functionality!!!
+        inputMap.put(KeyStroke.getKeyStroke("TAB"), "customTab");
+        actionMap.put("customTab", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTextField foundField = null;
+                int minDistance = 99999;
+                System.out.println("Tab pressed anywhere inside the panel!");
+
+                for (Lane lane : lanes) {
+                    for (Block block : lane.blocks) {
+                        int distanceLeft = gameContext.blockTravelDistance
+                                - ((int) block.y + gameContext.blockHeight);
+                        if (distanceLeft < minDistance) {
+                            foundField = lane.textField;
+                            minDistance = distanceLeft;
+                        }
+                    }
+                }
+                if (foundField != null) {
+                    foundField.requestFocusInWindow();
+                }
+            }
+        });
 
         this.addMouseListener(new MouseAdapter() {
             @Override

@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayDeque;
@@ -11,6 +13,7 @@ import java.util.ArrayDeque;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 public class Lane extends JPanel {
     GameContext gameContext;
@@ -37,7 +40,8 @@ public class Lane extends JPanel {
         label.setBackground(gameContext.laneLabelColor);
         this.add(label);
 
-        this.textField = new JTextField("hell0");
+        textField = new JTextField("hell0");
+        textField.setFocusTraversalKeysEnabled(false);
         textField.setBounds(
                 0, (int) (6.25 * tileHeight), this.getWidth(), (int) (0.75 * tileHeight));
         textField.addActionListener(new ActionListener() {
@@ -51,6 +55,14 @@ public class Lane extends JPanel {
                 } catch (NumberFormatException ex) {
                     System.out.println("Not a valid number!");
                 }
+            }
+        });
+        // Makes it so that when you focus the text field it highlights the text inside
+        textField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Schedule on the event queue so it happens *after* focus is officially set
+                SwingUtilities.invokeLater(() -> textField.selectAll());
             }
         });
         this.add(textField);
