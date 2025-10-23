@@ -7,13 +7,34 @@ import java.awt.Toolkit;
 public enum DimensionConstants {
     SCREEN_SIZE(screenSize()),
     FRAME(new Dimension(
-        (int) SCREEN_SIZE.get().getWidth() / 2,
-        (int) SCREEN_SIZE.get().getHeight() / 2
+        SCREEN_SIZE.get().width / 2,
+        SCREEN_SIZE.get().height / 2
     )),
     GRID(new Dimension(
-        (int) FRAME.get().getWidth() / 16,
-        (int) FRAME.get().getHeight() / 9
+        FRAME.get().width / 16,
+        FRAME.get().height / 9
+    )),
+    TITLE_BUTTON(new Dimension(
+        GRID.get().width * 6,
+        GRID.get().height * 4
+    )),
+    LANE(new Dimension(
+        GRID.get().width * 2,
+        GRID.get().height * 7
+    )),
+    TEXT_FIELD(new Dimension(
+        LANE.get().width,
+        (int) (LANE.get().height * 0.75)
+    )),
+    OP_LABEL(new Dimension(
+        LANE.get().width,
+        (int) (LANE.get().height * 0.75)
+    )),
+    BLOCK(new Dimension(
+        (int) (GRID.get().width * 1.5),
+        (int) (GRID.get().height * 1.5)
     ));
+
     
     private Dimension dimension;
     
