@@ -1,37 +1,225 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.Random;
 
+import javax.swing.AbstractAction;
+import javax.swing.ActionMap;
+import javax.swing.InputMap;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 public class Mode1Panel extends JPanel {
-    Lane lane1;
-    Lane lane2;
-    Lane lane3;
-    Lane lane4;
+    GameContext gameContext;
+    KeyHandler keyH;
 
-    Mode1Panel(int tileWidth, int tileHeight) {
+    ArrayList<Lane> lanes = new ArrayList<Lane>();
+
+    JLabel scoreLabel;
+    JLabel levelLabel;
+    HeartDisplay heartDisplay;
+
+    Mode1Panel(KeyHandler keyH, GameContext gameContext) {
+        this.gameContext = gameContext;
+        this.keyH = keyH;
         this.setLayout(null);
-        this.setBackground(Color.magenta);
+        this.addKeyListener(keyH);
+        this.setFocusable(true);
+        this.setBackground(gameContext.mode1BackgroundColor);
+        this.setFocusTraversalKeysEnabled(false);
+
+        // Get the InputMap that applies when a child has focus
+        InputMap inputMap = this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        ActionMap actionMap = this.getActionMap();
+
+        // TAB Functionality!!!
+        inputMap.put(KeyStroke.getKeyStroke("TAB"), "customTab");
+        actionMap.put("customTab", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JTextField foundField = null;
+                int minDistance = 99999;
+                System.out.println("Tab pressed anywhere inside the panel!");
+
+                for (Lane lane : lanes) {
+                    for (Block block : lane.blocks) {
+                        int distanceLeft = gameContext.blockTravelDistance
+                                - ((int) block.y + gameContext.blockHeight);
+                        if (distanceLeft < minDistance) {
+                            foundField = lane.textField;
+                            minDistance = distanceLeft;
+                        }
+                    }
+                }
+                if (foundField != null) {
+                    foundField.requestFocusInWindow();
+                }
+            }
+        });
+
+        this.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                Mode1Panel.this.requestFocusInWindow();
+            }
+        });
+
+        int tileWidth = gameContext.tileWidth;
+        int tileHeight = gameContext.tileHeight;
 
         int laneX = tileWidth;
-        lane1 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
-        laneX += tileWidth * 2;
-        lane2 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
-        laneX += tileWidth * 2;
-        lane3 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
-        laneX += tileWidth * 2;
-        lane4 = new Lane(laneX, tileHeight, tileWidth, tileHeight);
+        for (int i = 0; i < 4; i++) {
+            Lane lane = new Lane(laneX, tileHeight, gameContext);
+            lanes.add(lane);
+            this.add(lane);
+            laneX += tileWidth * 2;
+        }
 
-        this.add(lane1);
-        this.add(lane2);
-        this.add(lane3);
-        this.add(lane4);
+        scoreLabel = new JLabel();
+        scoreLabel.setBounds(
+                12 * tileWidth, 2 * tileHeight, 3 * tileWidth, (int) (0.75 * tileHeight));
+        scoreLabel.setBackground(Color.RED);
+        scoreLabel.setOpaque(true);
+        this.add(scoreLabel);
+
+        levelLabel = new JLabel();
+        levelLabel.setBounds(
+                12 * tileWidth, 3 * tileHeight, 3 * tileWidth, (int) (0.75 * tileHeight));
+        levelLabel.setBackground(Color.RED);
+        levelLabel.setOpaque(true);
+        this.add(levelLabel);
+
+        heartDisplay = new HeartDisplay(gameContext);
+        this.add(heartDisplay);
     }
 
+    Random random = new Random();
+    int aux = 0;
+    int aux2 = 0;
+    int timePassedMs = 0;
+    int levelTimePassedMs = 0;
+    int sign = 1;
+    int level = 0;
+    ArrayDeque<Integer> numbersLeft = new ArrayDeque<Integer>();
+
     void timeUpdate(int timeElapsedMs) {
-        lane1.timeUpdate(timeElapsedMs);
-        lane2.timeUpdate(timeElapsedMs);
-        lane3.timeUpdate(timeElapsedMs);
-        lane4.timeUpdate(timeElapsedMs);
+        timePassedMs += timeElapsedMs;
+        levelTimePassedMs += timeElapsedMs;
+
+        if (numbersLeft.isEmpty()) {
+            level++;
+            levelTimePassedMs = 0;
+            aux = 0;
+            gameContext.blockTravelTimeS -= 5;
+            levelLabel.setText("" + level);
+            for (int i = 0; i < 5 * level; i++) {
+                numbersLeft.add(random.nextInt(5 * level));
+            }
+        }
+
+        if (levelTimePassedMs > aux * 5000) {
+            Lane lane = lanes.get(random.nextInt(4));
+            lane.addBlock(numbersLeft.poll());
+
+            aux++;
+        }
+
+        for (Lane lane : lanes) {
+            while (!lane.submissions.isEmpty()) {
+                int submission = lane.submissions.poll();
+                Block firstBlock = lane.blocks.peek();
+                if (firstBlock != null) {
+                    if (submission == firstBlock.number) {
+                        lane.removeBlock(firstBlock);
+                    }
+                }
+            }
+            // System.out.println(enteredNumber);
+            for (Block block : lane.blocks) {
+                block.timeUpdate(timeElapsedMs, gameContext);
+
+                if ((int) block.y > gameContext.blockTravelDistance) {
+                    lane.removeBlock(block);
+                    if (heartDisplay.getNumberOfHearts() > 0) {
+                        heartDisplay.removeHeart();
+                    }
+                }
+            }
+        }
+
+        heartDisplay.timeUpdate(timeElapsedMs);
+    }
+}
+
+class HeartDisplay extends JPanel {
+    GameContext gameContext;
+
+    int panelWidth;
+    int panelHeight;
+    int heartWidth;
+    int heartHeight;
+    int numberOfHearts = 0;
+
+    ArrayDeque<Heart> hearts = new ArrayDeque<HeartDisplay.Heart>();
+
+    HeartDisplay(GameContext gameContext) {
+        this.gameContext = gameContext;
+        numberOfHearts = gameContext.InitialNumberOfHearts;
+        heartWidth = gameContext.tileWidth;
+        heartHeight = gameContext.tileHeight;
+        panelWidth = 5 * heartWidth;
+        panelHeight = heartHeight;
+
+        this.setLayout(null);
+        this.setOpaque(false);
+        this.setBounds(15 * gameContext.tileWidth - panelWidth, gameContext.tileHeight, panelWidth,
+                panelHeight);
+    }
+
+    public void addHeart() {
+        numberOfHearts++;
+        if (numberOfHearts > panelWidth / heartWidth) {
+            System.out.println("Heart overflow!");
+        }
+    }
+    public void removeHeart() {
+        if (numberOfHearts > 0) {
+            numberOfHearts--;
+        } else {
+            System.out.println("Removed heart when hearts are 0!");
+        }
+    }
+    public int getNumberOfHearts() {
+        return numberOfHearts;
+    }
+
+    public void timeUpdate(int t) {
+        while (numberOfHearts > hearts.size()) {
+            int x = panelWidth - (1 + hearts.size()) * heartWidth;
+            Heart heart = new Heart(x, 0, heartWidth, heartHeight);
+            hearts.addFirst(heart);
+            this.add(heart);
+        }
+        while (numberOfHearts < hearts.size()) {
+            Heart heart = hearts.poll();
+            this.remove(heart);
+        }
+    }
+
+    class Heart extends JLabel {
+        Heart(int x, int y, int heartWidth, int heartHeight) {
+            this.setBounds(x, y, heartWidth, heartHeight);
+            this.setBackground(Color.GREEN);
+            this.setOpaque(true);
+        }
     }
 }
