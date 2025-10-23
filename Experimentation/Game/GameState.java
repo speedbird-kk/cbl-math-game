@@ -1,7 +1,5 @@
 package Experimentation.Game;
 
-import javax.swing.JPanel;
-
 public interface GameState {
-    
+    void handleRequest(GameContext context);
 }
