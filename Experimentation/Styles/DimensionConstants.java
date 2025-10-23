@@ -7,8 +7,8 @@ import java.awt.Toolkit;
 public enum DimensionConstants {
     SCREEN_SIZE(screenSize()),
     FRAME(new Dimension(
-        SCREEN_SIZE.get().width / 2,
-        SCREEN_SIZE.get().height / 2
+        SCREEN_SIZE.get().width,
+        SCREEN_SIZE.get().height 
     )),
     GRID(new Dimension(
         FRAME.get().width / 16,
@@ -24,11 +24,11 @@ public enum DimensionConstants {
     )),
     TEXT_FIELD(new Dimension(
         LANE.get().width,
-        (int) (LANE.get().height * 0.75)
+        (int) (GRID.get().height * 0.75)
     )),
     OP_LABEL(new Dimension(
         LANE.get().width,
-        (int) (LANE.get().height * 0.75)
+        (int) (GRID.get().height * 0.75)
     )),
     BLOCK(new Dimension(
         (int) (GRID.get().width * 1.5),

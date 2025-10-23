@@ -7,6 +7,8 @@ import java.awt.event.MouseAdapter;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Experimentation.Styles.DimensionConstants;
+
 public class TitleScreenPanel extends JPanel {
     GameContext gameContext;
 
@@ -27,12 +29,13 @@ class TitleButton extends JButton {
     GameContext gameContext;
     long animationTime = 0;
     boolean isPressed = false;
+    int tileWidth = DimensionConstants.GRID.get().width;
+    int tileHeight = DimensionConstants.GRID.get().height;
 
     TitleButton(GameContext gameContext) {
         this.gameContext = gameContext;
-        int tileWidth = gameContext.tileWidth;
-        int tileHeight = gameContext.tileHeight;
-        this.setBounds(tileWidth * 6, tileHeight * 4, tileWidth * 4, tileHeight);
+        this.setBounds(tileWidth * 6, tileHeight * 4, DimensionConstants.TITLE_BUTTON.get().width,
+                DimensionConstants.TITLE_BUTTON.get().height);
         this.setFocusable(false);
         this.addActionListener(new ActionListener() {
             @Override
@@ -43,9 +46,6 @@ class TitleButton extends JButton {
         });
     }
     public void timeUpdate(int t) {
-        int tileWidth = gameContext.tileWidth;
-        int tileHeight = gameContext.tileHeight;
-
         animationTime += t;
         double angle = (animationTime % 2000) / 2000.0 * 2 * Math.PI;
         double sinT = Math.sin(angle);

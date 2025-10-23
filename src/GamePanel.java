@@ -10,6 +10,8 @@ import java.awt.Toolkit;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
+import Experimentation.Styles.DimensionConstants;
+
 public class GamePanel extends JPanel implements Runnable {
     final Dimension frameSize = new Dimension(300, 300);
     final int screenWidth = (int) frameSize.getWidth();
@@ -24,9 +26,7 @@ public class GamePanel extends JPanel implements Runnable {
     Mode1Panel mode1Panel;
 
     public GamePanel() {
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        // frameSize.setSize(screenSize.getWidth(), screenSize.getHeight());
-        frameSize.setSize(screenSize.getWidth() / 2, screenSize.getHeight() / 2);
+        frameSize.setSize(DimensionConstants.FRAME.get());
         gameContext = new GameContext(frameSize.getWidth(), frameSize.getHeight());
 
         this.setPreferredSize(frameSize);

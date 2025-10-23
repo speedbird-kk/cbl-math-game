@@ -15,6 +15,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import Experimentation.Styles.DimensionConstants;
+import Experimentation.Styles.DistanceConstants;
+
 public class Lane extends JPanel {
     GameContext gameContext;
     int tileWidth;
@@ -28,14 +31,16 @@ public class Lane extends JPanel {
 
     Lane(int x, int y, GameContext gameContext) {
         this.gameContext = gameContext;
-        int tileWidth = gameContext.tileWidth;
-        int tileHeight = gameContext.tileHeight;
-        this.setBounds(x, y, tileWidth * 2, tileHeight * 7);
+        int tileWidth = DimensionConstants.GRID.get().width;
+        int tileHeight = DimensionConstants.GRID.get().height;
+        this.setBounds(
+                x, y, DimensionConstants.LANE.get().width, DimensionConstants.LANE.get().height);
         this.setBackground(Color.BLUE);
         this.setLayout(null);
 
         this.label = new JLabel("Hi");
-        label.setBounds(0, (int) (5.5 * tileHeight), this.getWidth(), (int) (0.75 * tileHeight));
+        label.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OP_LABEL.get().width,
+                DimensionConstants.OP_LABEL.get().height);
         label.setOpaque(true);
         label.setBackground(gameContext.laneLabelColor);
         this.add(label);
@@ -95,13 +100,13 @@ class Block extends JPanel {
         label = new JLabel("" + number);
         this.add(label, BorderLayout.CENTER);
 
-        x = (GC.laneWidth - GC.blockWidth) / 2;
+        x = (DimensionConstants.LANE.get().width - DimensionConstants.BLOCK.get().width) / 2;
         y = 0;
-        this.setBounds(x, (int) y, GC.blockWidth, GC.blockHeight);
+        this.setBounds(x, (int) y, DimensionConstants.BLOCK.get().width,DimensionConstants.BLOCK.get().height);
         this.setBackground(GC.squareColor);
     }
     public void timeUpdate(int t, GameContext GC) {
-        double blockSpeed = (double) GC.blockTravelDistance / (double) GC.blockTravelTimeS;
+        double blockSpeed = (double) DistanceConstants.BLOCK_TRAVEL_DISTANCE.get() / (double) GC.blockTravelTimeS;
         y += blockSpeed * t / 1000.0;
 
         this.setLocation(this.x, (int) y);
