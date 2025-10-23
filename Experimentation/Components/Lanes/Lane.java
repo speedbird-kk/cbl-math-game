@@ -1,4 +1,7 @@
-package Experimentation.Components;
+package Experimentation.Components.Lanes;
+
+import Experimentation.Components.Block.Block;
+import Experimentation.Components.Input.Input;
 
 public abstract class Lane {
     protected String operationSymbol;
@@ -10,4 +13,6 @@ public abstract class Lane {
     }
 
     public abstract boolean checkResponse();
+
+    public abstract void parseResponse(Input input);
 }

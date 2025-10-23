@@ -1,4 +1,6 @@
-package Experimentation.Components;
+package Experimentation.Components.Lanes;
+
+import Experimentation.Components.Input.Input;
 
 public class DifferenceLane extends Lane {
     public static final int IDENTITY = 0;
@@ -9,8 +11,14 @@ public class DifferenceLane extends Lane {
         operationSymbol = "−";
     }
 
+    @Override
     public boolean checkResponse() {
         return response - subtrahend == currentBlock.getNumber();
+    }
+
+    @Override
+    public void parseResponse(Input input) {
+        response = input.a() - input.b();
     }
 
     public int getSubtrahend() {

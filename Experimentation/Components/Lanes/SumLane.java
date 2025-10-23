@@ -1,4 +1,6 @@
-package Experimentation.Components;
+package Experimentation.Components.Lanes;
+
+import Experimentation.Components.Input.Input;
 
 public class SumLane extends Lane {
     public static final int IDENTITY = 0;
@@ -12,6 +14,11 @@ public class SumLane extends Lane {
     @Override
     public boolean checkResponse() {
         return response + summand == currentBlock.getNumber();
+    }
+
+    @Override
+    public void parseResponse(Input input) {
+        response = input.a() + input.b();
     }
 
     public int getSummand() {

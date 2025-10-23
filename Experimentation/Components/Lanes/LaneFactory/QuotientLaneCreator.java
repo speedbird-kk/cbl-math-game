@@ -1,7 +1,7 @@
-package Experimentation.LaneFactory;
+package Experimentation.Components.Lanes.LaneFactory;
 
-import Experimentation.Components.Lane;
-import Experimentation.Components.QuotientLane;
+import Experimentation.Components.Lanes.Lane;
+import Experimentation.Components.Lanes.QuotientLane;
 
 public class QuotientLaneCreator extends LaneFactory {
     @Override

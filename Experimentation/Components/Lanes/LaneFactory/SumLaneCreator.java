@@ -1,7 +1,7 @@
-package Experimentation.LaneFactory;
+package Experimentation.Components.Lanes.LaneFactory;
 
-import Experimentation.Components.Lane;
-import Experimentation.Components.SumLane;
+import Experimentation.Components.Lanes.Lane;
+import Experimentation.Components.Lanes.SumLane;
 
 public class SumLaneCreator extends LaneFactory {
     @Override

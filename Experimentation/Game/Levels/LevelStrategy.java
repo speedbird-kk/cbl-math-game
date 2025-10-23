@@ -1,4 +1,4 @@
-package Experimentation.Levels;
+package Experimentation.Game.Levels;
 
 /**
  * Level 1, 2
@@ -18,15 +18,15 @@ package Experimentation.Levels;
  */
 
 public interface LevelStrategy {
-    public void setSpeed();
+    public void setTravelTime(LevelStrategyContext context);
 
-    public void setProductLaneNumbers();
+    public void setProductLaneNumbers(LevelStrategyContext context);
 
-    public void setQuotientLaneNumbers();
+    public void setQuotientLaneNumbers(LevelStrategyContext context);
 
-    public void setSumLaneNumbers();
+    public void setSumLaneNumbers(LevelStrategyContext context);
 
-    public void setDiffLaneNumbers();
+    public void setDiffLaneNumbers(LevelStrategyContext context);
 
-    public void setScoreMultiplier();
+    public void setScoreMultiplier(LevelStrategyContext context);
 }
