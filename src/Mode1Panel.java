@@ -18,6 +18,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
+import Experimentation.Styles.DimensionConstants;
+import Experimentation.Styles.DistanceConstants;
+
 public class Mode1Panel extends JPanel {
     GameContext gameContext;
     KeyHandler keyH;
@@ -52,8 +55,8 @@ public class Mode1Panel extends JPanel {
 
                 for (Lane lane : lanes) {
                     for (Block block : lane.blocks) {
-                        int distanceLeft = gameContext.blockTravelDistance
-                                - ((int) block.y + gameContext.blockHeight);
+                        int distanceLeft = DistanceConstants.BLOCK_TRAVEL_DISTANCE.get()
+                                - ((int) block.y + DimensionConstants.BLOCK.get().height);
                         if (distanceLeft < minDistance) {
                             foundField = lane.textField;
                             minDistance = distanceLeft;
@@ -73,8 +76,8 @@ public class Mode1Panel extends JPanel {
             }
         });
 
-        int tileWidth = gameContext.tileWidth;
-        int tileHeight = gameContext.tileHeight;
+        int tileWidth = DimensionConstants.GRID.get().width;
+        int tileHeight = DimensionConstants.GRID.get().height;
 
         int laneX = tileWidth;
         for (int i = 0; i < 4; i++) {
@@ -147,7 +150,7 @@ public class Mode1Panel extends JPanel {
             for (Block block : lane.blocks) {
                 block.timeUpdate(timeElapsedMs, gameContext);
 
-                if ((int) block.y > gameContext.blockTravelDistance) {
+                if ((int) block.y > DistanceConstants.BLOCK_TRAVEL_DISTANCE.get()) {
                     lane.removeBlock(block);
                     if (heartDisplay.getNumberOfHearts() > 0) {
                         heartDisplay.removeHeart();
@@ -174,15 +177,15 @@ class HeartDisplay extends JPanel {
     HeartDisplay(GameContext gameContext) {
         this.gameContext = gameContext;
         numberOfHearts = gameContext.InitialNumberOfHearts;
-        heartWidth = gameContext.tileWidth;
-        heartHeight = gameContext.tileHeight;
+        heartWidth = DimensionConstants.GRID.get().width;
+        heartHeight = DimensionConstants.GRID.get().height;
         panelWidth = 5 * heartWidth;
         panelHeight = heartHeight;
 
         this.setLayout(null);
         this.setOpaque(false);
-        this.setBounds(15 * gameContext.tileWidth - panelWidth, gameContext.tileHeight, panelWidth,
-                panelHeight);
+        this.setBounds(15 * DimensionConstants.GRID.get().width - panelWidth,
+                DimensionConstants.GRID.get().height, panelWidth, panelHeight);
     }
 
     public void addHeart() {
