@@ -1,7 +1,9 @@
 package Experimentation.Windows;
 
-import javax.swing.JFrame;
+import javax.swing.JPanel;
 
-public abstract class GameWindow {
-    protected static JFrame window;
+public interface GameWindow {
+    public JPanel getPanel();
+    public void show();
+    public void hide();
 }
