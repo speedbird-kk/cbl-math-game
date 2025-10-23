@@ -45,11 +45,12 @@ public class Lane extends JPanel {
         this.operand = new JLabel("+10");
         operand.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OP_LABEL.get().width,
                 DimensionConstants.OP_LABEL.get().height);
+
         // center horizontally
         operand.setHorizontalAlignment(SwingConstants.CENTER);
-
         // center vertically
         operand.setVerticalAlignment(SwingConstants.CENTER);
+
         ApplyStyles.OPERAND_STYLE.on(operand);
         this.add(operand);
 
@@ -109,6 +110,12 @@ class Block extends JPanel {
         this.number = number;
         label = new JLabel("" + number);
         label.setForeground(this.getForeground());
+        this.setLayout(new BorderLayout());
+        // center horizontally
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        // center vertically
+        label.setVerticalAlignment(SwingConstants.CENTER);
+        label.setFont(label.getFont().deriveFont((float) 0.3 * DimensionConstants.BLOCK.get().height));
         this.add(label, BorderLayout.CENTER);
 
         x = (DimensionConstants.LANE.get().width - DimensionConstants.BLOCK.get().width) / 2;

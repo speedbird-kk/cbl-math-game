@@ -18,6 +18,14 @@ public enum DimensionConstants {
         GRID.get().width * 6,
         GRID.get().height * 4
     )),
+    SCORE_LABEL(new Dimension(
+        GRID.get().width * 3,
+        (int)(GRID.get().height * 0.75)
+    )),
+    LEVEL_LABEL(new Dimension(
+        GRID.get().width * 3,
+        (int)(GRID.get().height * 0.75)
+    )),
     LANE(new Dimension(
         GRID.get().width * 2,
         GRID.get().height * 7
@@ -27,6 +35,10 @@ public enum DimensionConstants {
         (int) (GRID.get().height * 0.75)
     )),
     OP_LABEL(new Dimension(
+        LANE.get().width,
+        (int) (GRID.get().height * 0.75)
+    )),
+    INPUT_LABEL(new Dimension(
         LANE.get().width,
         (int) (GRID.get().height * 0.75)
     )),

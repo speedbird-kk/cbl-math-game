@@ -10,7 +10,10 @@ public enum ColourConstants {
     LANE_BACKGROUND(new Color(217, 217, 217)),
     LANE_BORDER(new Color(0, 0, 0)),
     OPERAND_BACKGROUND(new Color(4, 36, 51)),
-    INPUT_BACKGROUND(new Color(220, 234, 247));
+    INPUT_BACKGROUND(new Color(220, 234, 247)),
+    SCORE_BACKGROUND_COLOR(new Color(16, 72, 98)),
+    LEVEL_BACKGROUND_COLOR(new Color(16, 72, 98));
+    
 
     private Color colour;
 

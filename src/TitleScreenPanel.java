@@ -7,6 +7,7 @@ import java.awt.event.MouseAdapter;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import Experimentation.Styles.ApplyStyles;
 import Experimentation.Styles.DimensionConstants;
 
 public class TitleScreenPanel extends JPanel {
@@ -16,7 +17,7 @@ public class TitleScreenPanel extends JPanel {
 
     TitleScreenPanel(GameContext gameContext) {
         this.gameContext = gameContext;
-        this.setBackground(gameContext.titleScreenBackgroundColor);
+        ApplyStyles.TITLE_SCREEN_STYLE.on(this);
         this.setLayout(null);
         titleButton = new TitleButton(gameContext);
         this.add(titleButton);

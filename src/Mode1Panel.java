@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
+import Experimentation.Styles.ApplyStyles;
 import Experimentation.Styles.DimensionConstants;
 import Experimentation.Styles.DistanceConstants;
 
@@ -89,16 +90,14 @@ public class Mode1Panel extends JPanel {
 
         scoreLabel = new JLabel();
         scoreLabel.setBounds(
-                12 * tileWidth, 2 * tileHeight, 3 * tileWidth, (int) (0.75 * tileHeight));
-        scoreLabel.setBackground(Color.RED);
-        scoreLabel.setOpaque(true);
+                12 * tileWidth, 2 * tileHeight, DimensionConstants.SCORE_LABEL.get().width, DimensionConstants.SCORE_LABEL.get().height);
+        ApplyStyles.SCORE_LABEL_STYLE.on(scoreLabel);
         this.add(scoreLabel);
 
         levelLabel = new JLabel();
+        ApplyStyles.LEVEL_LABEL_STYLE.on(levelLabel);
         levelLabel.setBounds(
-                12 * tileWidth, 3 * tileHeight, 3 * tileWidth, (int) (0.75 * tileHeight));
-        levelLabel.setBackground(Color.RED);
-        levelLabel.setOpaque(true);
+                12 * tileWidth, 3 * tileHeight, DimensionConstants.LEVEL_LABEL.get().width, DimensionConstants.LEVEL_LABEL.get().height);
         this.add(levelLabel);
 
         heartDisplay = new HeartDisplay(gameContext);
@@ -123,7 +122,7 @@ public class Mode1Panel extends JPanel {
             levelTimePassedMs = 0;
             aux = 0;
             gameContext.blockTravelTimeS -= 5;
-            levelLabel.setText("" + level);
+            levelLabel.setText("Level: " + level);
             for (int i = 0; i < 5 * level; i++) {
                 numbersLeft.add(random.nextInt(5 * level));
             }
