@@ -1,5 +1,7 @@
 package Experimentation.Game.Levels;
 
+import Experimentation.Game.GameLevelStrategyContext;
+
 /**
  * Level 1.
  * Multiplication lane must only have blocks that are multiples of the multiplicand
@@ -15,15 +17,33 @@ public class LevelOneStrategy implements LevelStrategy {
         context.setTravelTime(TRAVEL_TIME);
     }
 
-    public void setProductLaneNumbers(LevelStrategyContext context) {
-        
+    @Override
+    public void setProductLaneNumbers(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext) {
+
     }
 
-    public void setQuotientLaneNumbers(LevelStrategyContext context);
+    @Override
+    public void setQuotientLaneNumbers(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext) {
 
-    public void setSumLaneNumbers(LevelStrategyContext context);
+    }
 
-    public void setDiffLaneNumbers(LevelStrategyContext context);
+    @Override
+    public void setSumLaneNumbers(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext) {
 
-    public void setScoreMultiplier(LevelStrategyContext context);
+    }
+
+    @Override
+    public void setDiffLaneNumbers(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext) {
+
+    }
+
+    @Override
+    public void setScoreMultiplier(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext) {
+
+    }
 }

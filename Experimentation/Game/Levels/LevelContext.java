@@ -10,6 +10,7 @@ public class LevelContext implements LevelStrategyContext {
     private List<Integer> possibleQuotients;
     private List<Integer> possibleSums;
     private List<Integer> possibleDifferences;
+    private int scoreMultiplier;
 
     // LevelContext needs to know Lanes
     // Should have LaneFactory create the 4 lanes ?
@@ -32,5 +33,9 @@ public class LevelContext implements LevelStrategyContext {
 
     public void setPossibleDifferences(List<Integer> possibleDifferences) {
         this.possibleDifferences = possibleDifferences;
+    }
+
+    public void setScoreMultiplier(int scoreMultiplier) {
+        this.scoreMultiplier = scoreMultiplier;
     }
 }

@@ -17,16 +17,28 @@ package Experimentation.Game.Levels;
  * addition and subtraction lanes can have correct answers less than (level - 1) * 100.
  */
 
+ import Experimentation.Game.GameLevelStrategyContext;
+
 public interface LevelStrategy {
     public void setTravelTime(LevelStrategyContext context);
 
-    public void setProductLaneNumbers(LevelStrategyContext context);
+    public void setProductLaneNumbers(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext
+    );
 
-    public void setQuotientLaneNumbers(LevelStrategyContext context);
+    public void setQuotientLaneNumbers(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext
+    );
 
-    public void setSumLaneNumbers(LevelStrategyContext context);
+    public void setSumLaneNumbers(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext
+    );
 
-    public void setDiffLaneNumbers(LevelStrategyContext context);
+    public void setDiffLaneNumbers(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext
+    );
 
-    public void setScoreMultiplier(LevelStrategyContext context);
+    public void setScoreMultiplier(
+        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext
+    );
 }

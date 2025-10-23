@@ -1,5 +1,6 @@
 package Experimentation.Game;
 
+import Experimentation.Components.Lanes.AllLanes;
 import Experimentation.ComponentsGUI.Frame.MainFrame;
 
 /**
@@ -8,4 +9,6 @@ import Experimentation.ComponentsGUI.Frame.MainFrame;
  */
 public interface GameStatesContext {
     public MainFrame getFrame();
+
+    public void setLanes(AllLanes lanes);
 }
