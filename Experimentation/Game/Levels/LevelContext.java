@@ -12,29 +12,36 @@ public class LevelContext implements LevelStrategyContext {
     private List<Integer> possibleDifferences;
     private int scoreMultiplier;
 
-    // LevelContext needs to know Lanes
-    // Should have LaneFactory create the 4 lanes ?
+    public void setStrategy(LevelStrategy strategy) {
+        this.strategy = strategy;
+    }
 
+    @Override
     public void setTravelTime(int travelTime) {
         this.travelTime = travelTime;
     }
 
+    @Override
     public void setPossibleProducts(List<Integer> possibleProducts) {
         this.possibleProducts = possibleProducts;
     }
 
+    @Override
     public void setPossibleQuotients(List<Integer> possibleQuotients) {
         this.possibleQuotients = possibleQuotients;
     }
 
+    @Override
     public void setPossibleSums(List<Integer> possibleSums) {
         this.possibleSums = possibleSums;
     }
 
+    @Override
     public void setPossibleDifferences(List<Integer> possibleDifferences) {
         this.possibleDifferences = possibleDifferences;
     }
 
+    @Override
     public void setScoreMultiplier(int scoreMultiplier) {
         this.scoreMultiplier = scoreMultiplier;
     }

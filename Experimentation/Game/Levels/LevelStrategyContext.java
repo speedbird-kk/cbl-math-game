@@ -15,4 +15,6 @@ public interface LevelStrategyContext {
     public void setPossibleSums(List<Integer> possibleSums);
 
     public void setPossibleDifferences(List<Integer> possibleDifferences);
+
+    public void setScoreMultiplier(int scoreMultiplier);
 }

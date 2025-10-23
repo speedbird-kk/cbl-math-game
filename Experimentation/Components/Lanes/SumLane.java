@@ -4,24 +4,18 @@ import Experimentation.Components.Input.Input;
 
 public class SumLane extends Lane {
     public static final int IDENTITY = 0;
-    private int summand;
 
-    public SumLane(int summand) {
-        this.summand = summand;
-        operationSymbol = "+";
+    public SumLane(int operand) {
+        super(operand, "+");
     }
 
     @Override
     public boolean checkResponse() {
-        return response + summand == currentBlock.getNumber();
+        return response + operand == currentBlock.getNumber();
     }
 
     @Override
     public void parseResponse(Input input) {
         response = input.a() + input.b();
-    }
-
-    public int getSummand() {
-        return summand;
     }
 }

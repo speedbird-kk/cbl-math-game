@@ -38,7 +38,5 @@ public interface LevelStrategy {
         LevelStrategyContext levelContext, GameLevelStrategyContext gameContext
     );
 
-    public void setScoreMultiplier(
-        LevelStrategyContext levelContext, GameLevelStrategyContext gameContext
-    );
+    public void setScoreMultiplier(LevelStrategyContext levelContext);
 }
