@@ -24,11 +24,11 @@ public enum DimensionConstants {
     )),
     TEXT_FIELD(new Dimension(
         LANE.get().width,
-        (int) (LANE.get().height * 0.75)
+        (int) (GRID.get().height * 0.75)
     )),
     OP_LABEL(new Dimension(
         LANE.get().width,
-        (int) (LANE.get().height * 0.75)
+        (int) (GRID.get().height * 0.75)
     )),
     BLOCK(new Dimension(
         (int) (GRID.get().width * 1.5),
