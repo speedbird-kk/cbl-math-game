@@ -2,7 +2,7 @@ package Experimentation.Styles;
 
 import java.awt.Color;
 
-public enum ColorVariables {
+public enum ColourConstants {
     TITLE_SCREEN_BACKGROUND(new Color(0, 60, 180)),
     MODE_ONE_BACKGROUND(new Color(255, 255, 255)),
     BLOCK_MAIN(new Color(16, 72, 98)),
@@ -14,7 +14,7 @@ public enum ColorVariables {
 
     private Color colour;
 
-    private ColorVariables(Color colour) {
+    private ColourConstants(Color colour) {
         this.colour = colour;
     }
 

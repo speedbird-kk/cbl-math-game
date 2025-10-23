@@ -58,7 +58,7 @@ public class Mode1Panel extends JPanel {
                         int distanceLeft = DistanceConstants.BLOCK_TRAVEL_DISTANCE.get()
                                 - ((int) block.y + DimensionConstants.BLOCK.get().height);
                         if (distanceLeft < minDistance) {
-                            foundField = lane.textField;
+                            foundField = lane.inputField;
                             minDistance = distanceLeft;
                         }
                     }
