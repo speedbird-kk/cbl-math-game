@@ -1,4 +1,4 @@
-package Experimentation.Components;
+package Experimentation.components.bingo;
 
 public class BingoNumber {
     private int value;

@@ -1,6 +1,6 @@
-package Experimentation.Game.Levels;
+package Experimentation.game.levels;
 
-import Experimentation.Game.GameLevelStrategyContext;
+import Experimentation.core.GameLevelStrategyContext;
 
 public class LevelThreeStrategy implements LevelStrategy {
     public static final int MAX_MULTIPLIER = 12;

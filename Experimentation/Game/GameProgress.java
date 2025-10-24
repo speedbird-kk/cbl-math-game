@@ -1,4 +1,4 @@
-package Experimentation.Game;
+package Experimentation.game;
 
 /**
  * Singleton.

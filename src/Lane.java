@@ -16,9 +16,9 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import Experimentation.Styles.ApplyStyles;
-import Experimentation.Styles.DimensionConstants;
-import Experimentation.Styles.DistanceConstants;
+import Experimentation.view.styles.ApplyStyles;
+import Experimentation.view.styles.DimensionConstants;
+import Experimentation.view.styles.DistanceConstants;
 
 public class Lane extends JPanel {
     GameContext gameContext;

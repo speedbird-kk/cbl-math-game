@@ -1,6 +1,4 @@
-package Experimentation;
-
-import Experimentation.ClassList;
+package FormerExperimentation;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;

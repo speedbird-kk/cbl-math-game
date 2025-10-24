@@ -1,7 +1,7 @@
-package Experimentation.Components.Lanes;
+package Experimentation.components.lanes;
 
-import Experimentation.Components.Block.CreatorStrategy.DifferenceLaneBlockCreator;
-import Experimentation.Components.Input.Input;
+import Experimentation.components.block.creator.DifferenceLaneBlockCreator;
+import Experimentation.components.input.Input;
 
 public class DifferenceLane extends Lane {
     public static final int IDENTITY = 0;

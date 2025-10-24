@@ -20,9 +20,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
-import Experimentation.Styles.ApplyStyles;
-import Experimentation.Styles.DimensionConstants;
-import Experimentation.Styles.DistanceConstants;
+import Experimentation.view.styles.ApplyStyles;
+import Experimentation.view.styles.DimensionConstants;
+import Experimentation.view.styles.DistanceConstants;
 
 public class Mode1Panel extends JPanel {
     GameContext gameContext;

@@ -1,6 +1,6 @@
-package Experimentation.Game.Levels;
+package Experimentation.game.levels;
 
-import Experimentation.Game.GameLevelStrategyContext;
+import Experimentation.core.GameLevelStrategyContext;
 
 public class LevelHigherStrategy implements LevelStrategy {
     private static int LEVEL;

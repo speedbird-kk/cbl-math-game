@@ -1,7 +1,7 @@
-package Experimentation.Components.Lanes;
+package Experimentation.components.lanes;
 
-import Experimentation.Components.Block.CreatorStrategy.QuotientLaneBlockCreator;
-import Experimentation.Components.Input.Input;
+import Experimentation.components.block.creator.QuotientLaneBlockCreator;
+import Experimentation.components.input.Input;
 
 public class QuotientLane extends Lane {
     public static final int IDENTITY = 1;

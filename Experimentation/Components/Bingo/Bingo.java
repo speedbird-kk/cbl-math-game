@@ -1,4 +1,4 @@
-package Experimentation.Components;
+package Experimentation.components.bingo;
 
 import java.util.List;
 

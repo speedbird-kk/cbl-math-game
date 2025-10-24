@@ -7,8 +7,8 @@ import java.awt.event.MouseAdapter;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import Experimentation.Styles.ApplyStyles;
-import Experimentation.Styles.DimensionConstants;
+import Experimentation.view.styles.ApplyStyles;
+import Experimentation.view.styles.DimensionConstants;
 
 public class TitleScreenPanel extends JPanel {
     GameContext gameContext;
