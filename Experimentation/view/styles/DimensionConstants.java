@@ -34,7 +34,7 @@ public enum DimensionConstants {
         LANE.get().width,
         (int) (GRID.get().height * 0.75)
     )),
-    OP_LABEL(new Dimension(
+    OPERAND_LABEL(new Dimension(
         LANE.get().width,
         (int) (GRID.get().height * 0.75)
     )),

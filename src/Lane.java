@@ -40,11 +40,11 @@ public class Lane extends JPanel {
 
         ApplyStyles.LANE_STYLE.on(this);
 
-        this.setLayout(null);
+        // this.setLayout(null); (added this to ApplyStyles.LANE_STYLE)
 
         this.operand = new JLabel("+10");
-        operand.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OP_LABEL.get().width,
-                DimensionConstants.OP_LABEL.get().height);
+        operand.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OPERAND_LABEL.get().width,
+                DimensionConstants.OPERAND_LABEL.get().height);
 
         // center horizontally
         operand.setHorizontalAlignment(SwingConstants.CENTER);

@@ -15,6 +15,7 @@ public enum ApplyStyles {
         public void on(JComponent c) {
             c.setBackground(ColourConstants.LANE_BACKGROUND.get());
             c.setBorder(new LineBorder(Color.BLACK));
+            c.setLayout(null);
         }
     },
     OPERAND_STYLE {

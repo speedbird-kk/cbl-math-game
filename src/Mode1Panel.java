@@ -20,7 +20,7 @@ import javax.swing.KeyStroke;
 
 import Experimentation.view.styles.ApplyStyles;
 import Experimentation.view.styles.DimensionConstants;
-import Experimentation.view.styles.DistanceConstants;
+import Experimentation.view.styles.LengthConstants;
 
 public class Mode1Panel extends JPanel {
     GameContext gameContext;
@@ -56,7 +56,7 @@ public class Mode1Panel extends JPanel {
 
                 for (Lane lane : lanes) {
                     for (Block block : lane.blocks) {
-                        int distanceLeft = DistanceConstants.BLOCK_TRAVEL_DISTANCE.get()
+                        int distanceLeft = LengthConstants.BLOCK_TRAVEL_DISTANCE.get()
                                 - ((int) block.y + DimensionConstants.BLOCK.get().height);
                         if (distanceLeft < minDistance) {
                             foundField = lane.inputField;
@@ -149,7 +149,7 @@ public class Mode1Panel extends JPanel {
             for (Block block : lane.blocks) {
                 block.timeUpdate(timeElapsedMs, gameContext);
 
-                if ((int) block.y > DistanceConstants.BLOCK_TRAVEL_DISTANCE.get()) {
+                if ((int) block.y > LengthConstants.BLOCK_TRAVEL_DISTANCE.get()) {
                     lane.removeBlock(block);
                     if (heartDisplay.getNumberOfHearts() > 0) {
                         heartDisplay.removeHeart();

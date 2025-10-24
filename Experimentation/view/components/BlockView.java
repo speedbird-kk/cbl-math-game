@@ -2,6 +2,7 @@ package Experimentation.view.components;
 
 import Experimentation.components.block.Block;
 import Experimentation.view.styles.ApplyStyles;
+import Experimentation.view.styles.BoundsConstants;
 import Experimentation.view.styles.DimensionConstants;
 import Experimentation.view.styles.Style;
 import java.awt.BorderLayout;
@@ -10,6 +11,8 @@ import javax.swing.JPanel;
 
 public class BlockView extends JPanel {
     private final Block block;
+    private final int x;
+    private int y;
 
     public BlockView(Block block) {
         this.block = block;
@@ -26,9 +29,11 @@ public class BlockView extends JPanel {
 
         this.add(label, BorderLayout.CENTER);
 
+        x = (DimensionConstants.LANE.get().width
+            - DimensionConstants.BLOCK.get().width) / 2;
+        
+        y = 0;
 
-        // x = (DimensionConstants.LANE.get().width - DimensionConstants.BLOCK.get().width) / 2;
-        // y = 0;
-        // this.setBounds(x, (int) y, DimensionConstants.BLOCK.get().width,DimensionConstants.BLOCK.get().height);
+        this.setBounds(BoundsConstants.BLOCK_BOUNDS.get());
     }
 }

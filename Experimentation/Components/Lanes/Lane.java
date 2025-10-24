@@ -3,9 +3,10 @@ package Experimentation.components.lanes;
 import Experimentation.components.block.Block;
 import Experimentation.components.block.creator.BlockCreatorStrategy;
 import Experimentation.components.input.Input;
+import Experimentation.core.observer.Subject;
 import Experimentation.game.levels.LevelBlockCreatorContext;
 
-public abstract class Lane {
+public abstract class Lane implements LaneState, Subject {
     protected final int operand;
     protected final String operationSymbol;
     protected final LaneType type;
@@ -26,6 +27,7 @@ public abstract class Lane {
         this.response = response;
     }
 
+    @Override
     public int getOperand() {
         return operand;
     }
@@ -34,10 +36,12 @@ public abstract class Lane {
         return type;
     }
 
+    @Override
     public Block createBlock(LevelBlockCreatorContext context) {
         return blockCreatorStrategy.createBlock(context);
     }
 
+    @Override
     public abstract boolean checkResponse();
 
     public abstract void parseResponse(Input input);

@@ -2,9 +2,11 @@ package Experimentation.game.levels;
 
 import java.util.List;
 
-import Experimentation.components.lanes.Lane;
+import Experimentation.core.observer.Subject;
 
-public class LevelContext implements LevelStrategyContext, LevelBlockCreatorContext {
+public class LevelContext
+    implements LevelStrategyContext, LevelBlockCreatorContext, LevelTravelTime, Subject {
+
     private LevelStrategy strategy;
     private int travelTime;
     private List<Integer> possibleProducts;
@@ -45,6 +47,11 @@ public class LevelContext implements LevelStrategyContext, LevelBlockCreatorCont
     @Override
     public void setScoreMultiplier(int scoreMultiplier) {
         this.scoreMultiplier = scoreMultiplier;
+    }
+
+    @Override
+    public int getTravelTime() {
+        return travelTime;
     }
 
     @Override
