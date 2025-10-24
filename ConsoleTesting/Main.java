@@ -1,6 +1,6 @@
 package ConsoleTesting;
 
-import Experimentation.Styles.DimensionConstants;
+import Experimentation.view.styles.DimensionConstants;
 
 public class Main {
     

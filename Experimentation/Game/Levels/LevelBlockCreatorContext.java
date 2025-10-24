@@ -1,4 +1,4 @@
-package Experimentation.Game.Levels;
+package Experimentation.game.levels;
 
 import java.util.List;
 

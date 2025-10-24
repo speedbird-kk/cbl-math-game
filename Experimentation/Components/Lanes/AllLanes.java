@@ -1,4 +1,4 @@
-package Experimentation.Components.Lanes;
+package Experimentation.components.lanes;
 
 public record AllLanes(
     Lane productLane, Lane quotientLane, Lane sumLane, Lane differenceLane) {

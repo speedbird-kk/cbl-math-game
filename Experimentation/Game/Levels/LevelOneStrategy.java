@@ -1,9 +1,9 @@
-package Experimentation.Game.Levels;
+package Experimentation.game.levels;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import Experimentation.Game.GameLevelStrategyContext;
+import Experimentation.core.GameLevelStrategyContext;
 
 /**
  * Level 1.

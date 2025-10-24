@@ -1,7 +1,7 @@
-package Experimentation.Components.Lanes;
+package Experimentation.components.lanes;
 
-import Experimentation.Components.Block.CreatorStrategy.SumLaneBlockCreator;
-import Experimentation.Components.Input.Input;
+import Experimentation.components.block.creator.SumLaneBlockCreator;
+import Experimentation.components.input.Input;
 
 public class SumLane extends Lane {
     public static final int IDENTITY = 0;

@@ -1,7 +1,8 @@
-package Experimentation.Game.Levels;
+package Experimentation.game.levels;
 
-import Experimentation.Components.Lanes.Lane;
 import java.util.List;
+
+import Experimentation.components.lanes.Lane;
 
 public class LevelContext implements LevelStrategyContext, LevelBlockCreatorContext {
     private LevelStrategy strategy;

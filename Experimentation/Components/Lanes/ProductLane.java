@@ -1,7 +1,7 @@
-package Experimentation.Components.Lanes;
+package Experimentation.components.lanes;
 
-import Experimentation.Components.Block.CreatorStrategy.ProductLaneBlockCreator;
-import Experimentation.Components.Input.Input;
+import Experimentation.components.block.creator.ProductLaneBlockCreator;
+import Experimentation.components.input.Input;
 
 public class ProductLane extends Lane {
     public static final int IDENTITY = 1;

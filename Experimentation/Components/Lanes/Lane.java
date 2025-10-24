@@ -1,9 +1,9 @@
-package Experimentation.Components.Lanes;
+package Experimentation.components.lanes;
 
-import Experimentation.Components.Block.Block;
-import Experimentation.Components.Block.CreatorStrategy.BlockCreatorStrategy;
-import Experimentation.Components.Input.Input;
-import Experimentation.Game.Levels.LevelBlockCreatorContext;
+import Experimentation.components.block.Block;
+import Experimentation.components.block.creator.BlockCreatorStrategy;
+import Experimentation.components.input.Input;
+import Experimentation.game.levels.LevelBlockCreatorContext;
 
 public abstract class Lane {
     protected final int operand;
