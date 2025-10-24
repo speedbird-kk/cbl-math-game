@@ -1,4 +1,4 @@
-package Experimentation.Windows;
+package Experimentation.ComponentsGUI.Windows;
 
 import javax.swing.JPanel;
 

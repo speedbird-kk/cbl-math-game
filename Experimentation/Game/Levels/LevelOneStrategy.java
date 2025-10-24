@@ -70,7 +70,11 @@ public class LevelOneStrategy implements LevelStrategy {
         List<Integer> possibleDifferences = new ArrayList<>();
         int subtrahend = gameContext.getLanes().differenceLane().getOperand();
 
-        for ()
+        for (int i = 1; i < MAX_ANSWER - subtrahend; i++) {
+            possibleDifferences.add(i);
+        }
+
+        levelContext.setPossibleDifferences(possibleDifferences);
     }
 
     @Override

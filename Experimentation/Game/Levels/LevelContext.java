@@ -3,7 +3,7 @@ package Experimentation.Game.Levels;
 import Experimentation.Components.Lanes.Lane;
 import java.util.List;
 
-public class LevelContext implements LevelStrategyContext {
+public class LevelContext implements LevelStrategyContext, LevelBlockCreatorContext {
     private LevelStrategy strategy;
     private int travelTime;
     private List<Integer> possibleProducts;
@@ -44,5 +44,25 @@ public class LevelContext implements LevelStrategyContext {
     @Override
     public void setScoreMultiplier(int scoreMultiplier) {
         this.scoreMultiplier = scoreMultiplier;
+    }
+
+    @Override
+    public List<Integer> getPossibleProducts() {
+        return possibleProducts;
+    }
+
+    @Override
+    public List<Integer> getPossibleQuotients() {
+        return possibleQuotients;
+    }
+
+    @Override
+    public List<Integer> getPossibleSums() {
+        return possibleSums;
+    }
+
+    @Override
+    public List<Integer> getPossibleDifferences() {
+        return possibleDifferences;
     }
 }

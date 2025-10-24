@@ -1,4 +1,4 @@
-package Experimentation.Components;
+package Experimentation.Components.Block;
 
 public class Block {
     private int number;

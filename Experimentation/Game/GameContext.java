@@ -17,7 +17,6 @@ public class GameContext implements GameStatesContext, GameLevelStrategyContext 
     private List<Block> activeBlocks;
     private AllLanes lanes;
     private GameState state;
-    private JFrame mainFrame;
     private LevelContext levelContext;
 
     public void setState(GameState state) {
