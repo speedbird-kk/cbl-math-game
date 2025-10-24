@@ -80,24 +80,38 @@ public class Mode1Panel extends JPanel {
         int tileWidth = DimensionConstants.GRID.get().width;
         int tileHeight = DimensionConstants.GRID.get().height;
 
-        int laneX = tileWidth;
-        for (int i = 0; i < 4; i++) {
-            Lane lane = new Lane(laneX, tileHeight, gameContext);
+        {
+            int laneX = tileWidth;
+            Lane lane = new AdditionLane(laneX, tileHeight, 10, gameContext);
+            lanes.add(lane);
+            this.add(lane);
+            laneX += tileWidth * 2;
+            lane = new SubtractionLane(laneX, tileHeight, 10, gameContext);
+            lanes.add(lane);
+            this.add(lane);
+            laneX += tileWidth * 2;
+            lane = new MultiplicationLane(laneX, tileHeight, 10, gameContext);
+            lanes.add(lane);
+            this.add(lane);
+            laneX += tileWidth * 2;
+            lane = new DivisionLane(laneX, tileHeight, 10, gameContext);
             lanes.add(lane);
             this.add(lane);
             laneX += tileWidth * 2;
         }
 
         scoreLabel = new JLabel();
-        scoreLabel.setBounds(
-                12 * tileWidth, 2 * tileHeight, DimensionConstants.SCORE_LABEL.get().width, DimensionConstants.SCORE_LABEL.get().height);
+        scoreLabel.setBounds(12 * tileWidth, 2 * tileHeight,
+                DimensionConstants.SCORE_LABEL.get().width,
+                DimensionConstants.SCORE_LABEL.get().height);
         ApplyStyles.SCORE_LABEL_STYLE.on(scoreLabel);
         this.add(scoreLabel);
 
         levelLabel = new JLabel();
         ApplyStyles.LEVEL_LABEL_STYLE.on(levelLabel);
-        levelLabel.setBounds(
-                12 * tileWidth, 3 * tileHeight, DimensionConstants.LEVEL_LABEL.get().width, DimensionConstants.LEVEL_LABEL.get().height);
+        levelLabel.setBounds(12 * tileWidth, 3 * tileHeight,
+                DimensionConstants.LEVEL_LABEL.get().width,
+                DimensionConstants.LEVEL_LABEL.get().height);
         this.add(levelLabel);
 
         heartDisplay = new HeartDisplay(gameContext);
