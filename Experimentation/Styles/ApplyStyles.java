@@ -4,25 +4,20 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.StyleConstants.ColorConstants;
 
 public enum ApplyStyles {
-    STYLE_NAME {
-        @Override
-        public void on(JComponent c) {
-
-        }
-    },
-    LANE_STYLE{
+    LANE_STYLE {
         @Override
         public void on(JComponent c) {
             c.setBackground(ColourConstants.LANE_BACKGROUND.get());
             c.setBorder(new LineBorder(Color.BLACK));
         }
     },
-    OPERAND_STYLE{
+    OPERAND_STYLE {
         @Override
         public void on(JComponent c) {
             c.setOpaque(true);
@@ -31,7 +26,7 @@ public enum ApplyStyles {
             c.setFont(c.getFont().deriveFont((float) 0.3 * DimensionConstants.OP_LABEL.get().height));
         }
     },
-    INPUT_STYLE{
+    INPUT_STYLE {
         @Override
         public void on(JComponent c) {
             c.setBackground(ColourConstants.INPUT_BACKGROUND.get());
@@ -42,14 +37,21 @@ public enum ApplyStyles {
             ));
         }
     },
-    BLOCK_MAIN_STYLE{
+    BLOCK_MAIN_STYLE {
         @Override
         public void on(JComponent c) {
             c.setBackground(ColourConstants.BLOCK_MAIN.get());
             c.setForeground(Color.WHITE);
         }
     },
-    SCORE_LABEL_STYLE{
+    BLOCK_RED_STYLE {
+        @Override
+        public void on(JComponent c) {
+            c.setBackground(ColourConstants.BLOCK_RED.get());
+            c.setForeground(Color.WHITE);
+        }
+    },
+    SCORE_LABEL_STYLE {
         @Override
         public void on(JComponent c) {
             c.setOpaque(true);
@@ -59,7 +61,7 @@ public enum ApplyStyles {
             c.setBorder(new EmptyBorder(0, 10, 0, 0));
         }
     },
-    LEVEL_LABEL_STYLE{
+    LEVEL_LABEL_STYLE {
         @Override
         public void on(JComponent c) {
             c.setOpaque(true);
@@ -69,7 +71,7 @@ public enum ApplyStyles {
             c.setBorder(new EmptyBorder(0, 10, 0, 0));
         }
     },
-    TITLE_SCREEN_STYLE{
+    TITLE_SCREEN_STYLE {
         @Override
         public void on(JComponent c) {
             c.setBackground(ColourConstants.TITLE_SCREEN_BACKGROUND.get());
@@ -83,22 +85,9 @@ public enum ApplyStyles {
      * Apply multiple styles on a component.
      */
     @SafeVarargs
-    public static final void on(JComponent c, String... styles)
-        throws UnsupportedOperationException {
-
-        for (String style : styles) {
-            boolean isFound = false;
-
-            for (ApplyStyles constant : ApplyStyles.values()) {
-                if (constant.name().equals(style)) {
-                    isFound = true;
-                    constant.on(c);
-                }
-            }
-
-            if (!isFound) {
-                throw new UnsupportedOperationException("Unknown style.");
-            }
+    public static final void on(JComponent c, ApplyStyles... styles) {
+        for (ApplyStyles style : styles) {
+            style.on(c);
         }
     }
 }

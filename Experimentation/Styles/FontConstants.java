@@ -1,0 +1,17 @@
+package Experimentation.Styles;
+
+import java.awt.Font;
+
+public enum FontConstants {
+    BLOCK_LABEL(new Font("Arial", Font.BOLD, 1));
+
+    private Font font;
+
+    FontConstants(Font font) {
+        this.font = font;
+    }
+
+    public Font get() {
+        return font;
+    }
+}
