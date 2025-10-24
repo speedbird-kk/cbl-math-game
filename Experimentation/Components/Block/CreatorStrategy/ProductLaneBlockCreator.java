@@ -9,10 +9,11 @@ public class ProductLaneBlockCreator implements BlockCreatorStrategy {
     public Block createBlock(LevelBlockCreatorContext context) {
         List<Integer> possibleProducts = context.getPossibleProducts();
         int value = possibleProducts.get(
-            BlockCreator.getRandom().nextInt(possibleProducts.size())
+            BlockConstants.getRandom().nextInt(possibleProducts.size())
         );
-        
-        boolean isRed = BlockCreator.getRandom().nextDouble() < BlockCreator.getChanceOfRedBlock();
+
+        boolean isRed =
+            BlockConstants.getRandom().nextDouble() < BlockConstants.getChanceOfRedBlock();
 
         return new Block(value, isRed);
     }

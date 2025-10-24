@@ -9,10 +9,11 @@ public class DifferenceLaneBlockCreator implements BlockCreatorStrategy {
     public Block createBlock(LevelBlockCreatorContext context) {
         List<Integer> possibleDifferences = context.getPossibleDifferences();
         int value = possibleDifferences.get(
-            BlockCreator.getRandom().nextInt(possibleDifferences.size())
+            BlockConstants.getRandom().nextInt(possibleDifferences.size())
         );
         
-        boolean isRed = BlockCreator.getRandom().nextDouble() < BlockCreator.getChanceOfRedBlock();
+        boolean isRed =
+            BlockConstants.getRandom().nextDouble() < BlockConstants.getChanceOfRedBlock();
 
         return new Block(value, isRed);
     }

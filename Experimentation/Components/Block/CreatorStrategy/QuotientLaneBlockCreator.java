@@ -9,10 +9,11 @@ public class QuotientLaneBlockCreator implements BlockCreatorStrategy {
     public Block createBlock(LevelBlockCreatorContext context) {
         List<Integer> possibleQuotients = context.getPossibleQuotients();
         int value = possibleQuotients.get(
-            BlockCreator.getRandom().nextInt(possibleQuotients.size())
+            BlockConstants.getRandom().nextInt(possibleQuotients.size())
         );
-        
-        boolean isRed = BlockCreator.getRandom().nextDouble() < BlockCreator.getChanceOfRedBlock();
+
+        boolean isRed =
+            BlockConstants.getRandom().nextDouble() < BlockConstants.getChanceOfRedBlock();
 
         return new Block(value, isRed);
     }

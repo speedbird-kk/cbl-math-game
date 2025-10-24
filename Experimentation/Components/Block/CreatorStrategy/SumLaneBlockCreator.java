@@ -9,10 +9,11 @@ public class SumLaneBlockCreator implements BlockCreatorStrategy {
     public Block createBlock(LevelBlockCreatorContext context) {
         List<Integer> possibleSums = context.getPossibleSums();
         int value = possibleSums.get(
-            BlockCreator.getRandom().nextInt(possibleSums.size())
+            BlockConstants.getRandom().nextInt(possibleSums.size())
         );
         
-        boolean isRed = BlockCreator.getRandom().nextDouble() < BlockCreator.getChanceOfRedBlock();
+        boolean isRed = 
+            BlockConstants.getRandom().nextDouble() < BlockConstants.getChanceOfRedBlock();
 
         return new Block(value, isRed);
     }

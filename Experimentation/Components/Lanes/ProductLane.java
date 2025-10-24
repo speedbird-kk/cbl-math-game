@@ -1,12 +1,13 @@
 package Experimentation.Components.Lanes;
 
+import Experimentation.Components.Block.CreatorStrategy.ProductLaneBlockCreator;
 import Experimentation.Components.Input.Input;
 
 public class ProductLane extends Lane {
     public static final int IDENTITY = 1;
 
     public ProductLane(int operand) {
-        super(operand, "×");
+        super(operand, LaneType.PRODUCT, "×", new ProductLaneBlockCreator());
     }
 
     @Override
