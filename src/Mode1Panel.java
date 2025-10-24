@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -10,6 +11,7 @@ import java.util.Random;
 
 import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
+import javax.swing.ImageIcon;
 import javax.swing.InputMap;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
@@ -234,8 +236,25 @@ class HeartDisplay extends JPanel {
     class Heart extends JLabel {
         Heart(int x, int y, int heartWidth, int heartHeight) {
             this.setBounds(x, y, heartWidth, heartHeight);
-            this.setBackground(Color.GREEN);
-            this.setOpaque(true);
+            ImageIcon icon = new ImageIcon("Assets/Images/heart.png");
+            // this.setIcon(icon);
+            ImageIcon scaledIcon = scaleImageToFit(icon, heartWidth, heartHeight);
+            this.setIcon(scaledIcon);
+        }
+        private ImageIcon scaleImageToFit(ImageIcon icon, int maxWidth, int maxHeight) {
+            int originalWidth = icon.getIconWidth();
+            int originalHeight = icon.getIconHeight();
+
+            // Compute scaling factor to keep aspect ratio
+            double scale = Math.min(
+                    (double) maxWidth / originalWidth, (double) maxHeight / originalHeight);
+
+            int newWidth = (int) (originalWidth * scale);
+            int newHeight = (int) (originalHeight * scale);
+
+            Image scaled =
+                    icon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+            return new ImageIcon(scaled);
         }
     }
 }
