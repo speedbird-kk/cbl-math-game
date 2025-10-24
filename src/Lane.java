@@ -56,7 +56,7 @@ public class Lane extends JPanel {
         setOpAmount(amount);
         this.add(operand);
 
-        inputField = new JTextField("hell0");
+        inputField = new JTextField("Enter here");
         inputField.setFocusTraversalKeysEnabled(false);
         inputField.setBounds(
                 0, (int) (6.25 * tileHeight), this.getWidth(), (int) (0.75 * tileHeight));
@@ -154,6 +154,12 @@ class MultiplicationLane extends Lane{
         super.amount = amount;
         operand.setText("×" + super.amount);
     }
+    @Override
+    public void addBlock(int number){
+        Block block = new Block(number*amount, gameContext);
+        blocks.add(block);
+        this.add(block);
+    }
 }
 class DivisionLane extends Lane{
     DivisionLane(int x, int y, int amount, GameContext gameContext) {
@@ -191,7 +197,7 @@ class Block extends JPanel {
         this.add(label, BorderLayout.CENTER);
 
         x = (DimensionConstants.LANE.get().width - DimensionConstants.BLOCK.get().width) / 2;
-        y = 0;
+        y = -DimensionConstants.BLOCK.get().height;
         this.setBounds(x, (int) y, DimensionConstants.BLOCK.get().width,DimensionConstants.BLOCK.get().height);
     }
     public void timeUpdate(int t, GameContext GC) {

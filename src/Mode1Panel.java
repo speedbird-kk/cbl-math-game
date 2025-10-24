@@ -42,6 +42,7 @@ public class Mode1Panel extends JPanel {
         this.setFocusable(true);
         this.setBackground(gameContext.mode1BackgroundColor);
         this.setFocusTraversalKeysEnabled(false);
+        this.requestFocusInWindow();
 
         // Get the InputMap that applies when a child has focus
         InputMap inputMap = this.getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);

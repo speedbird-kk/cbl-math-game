@@ -5,19 +5,45 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.UIManager;
 
 import Experimentation.view.styles.ApplyStyles;
 import Experimentation.view.styles.DimensionConstants;
 
 public class TitleScreenPanel extends JPanel {
     TitleButton titleButton;
+    JTextArea tutorialText;
 
     TitleScreenPanel() {
         ApplyStyles.TITLE_SCREEN_STYLE.on(this);
         this.setLayout(null);
         titleButton = new TitleButton();
         this.add(titleButton);
+        tutorialText = new JTextArea();
+        tutorialText.setWrapStyleWord(true);
+        tutorialText.setLineWrap(true);
+        tutorialText.setEditable(false);
+        tutorialText.setFocusable(false);
+        tutorialText.setBounds(DimensionConstants.GRID.get().width*4,DimensionConstants.GRID.get().height*5,DimensionConstants.GRID.get().width*8,DimensionConstants.GRID.get().height*3);
+        tutorialText.setOpaque(false);
+        tutorialText.setFont(UIManager.getFont("Label.font"));
+        tutorialText.setForeground(Color.WHITE);
+        tutorialText.setText( 
+        "Welcome to the game!\n"+
+        "There are 4 lanes, on each lane blocks with numbers will start falling.\n"+
+        "In order to destroy a block look at the operation on the coresponding lane and enter a number that, after the operation is applied to it, results in the number on the block.\n"+
+        "If a block reaches the bottom of the lane you lose a heart, when you lose all of your hearts you lose the game.\n"+
+        "As you progress the level increases and the game gets harder.\n"+
+        "use TAB to quickly switch to lanes that have blocks.\n"
+        );
+
+        this.add(tutorialText);
+
+
+
     }
     public void timeUpdate(int t) {
         titleButton.timeUpdate(t);
