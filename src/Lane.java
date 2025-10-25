@@ -24,6 +24,7 @@ public class Lane extends JPanel {
     GameContext gameContext;
     int tileWidth;
     int tileHeight;
+    int amount;
 
     JLabel operand;
     JTextField inputField;
@@ -31,7 +32,7 @@ public class Lane extends JPanel {
     ArrayDeque<Block> blocks = new ArrayDeque<Block>();
     ArrayDeque<Integer> submissions = new ArrayDeque<Integer>();
 
-    Lane(int x, int y, GameContext gameContext) {
+    Lane(int x, int y,int amount, GameContext gameContext) {
         this.gameContext = gameContext;
         int tileWidth = DimensionConstants.GRID.get().width;
         int tileHeight = DimensionConstants.GRID.get().height;
@@ -42,9 +43,15 @@ public class Lane extends JPanel {
 
         // this.setLayout(null); (added this to ApplyStyles.LANE_STYLE)
 
+<<<<<<< HEAD
         this.operand = new JLabel("+10");
         operand.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OPERAND_LABEL.get().width,
                 DimensionConstants.OPERAND_LABEL.get().height);
+=======
+        this.operand = new JLabel();
+        operand.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OP_LABEL.get().width,
+                DimensionConstants.OP_LABEL.get().height);
+>>>>>>> aa2bb5a8e10fb4fb3442d0a331043842226e8f5a
 
         // center horizontally
         operand.setHorizontalAlignment(SwingConstants.CENTER);
@@ -52,18 +59,20 @@ public class Lane extends JPanel {
         operand.setVerticalAlignment(SwingConstants.CENTER);
 
         ApplyStyles.OPERAND_STYLE.on(operand);
+        setOpAmount(amount);
         this.add(operand);
 
         inputField = new JTextField("hell0");
         inputField.setFocusTraversalKeysEnabled(false);
         inputField.setBounds(
                 0, (int) (6.25 * tileHeight), this.getWidth(), (int) (0.75 * tileHeight));
+        
         inputField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
                     int textFieldNumber = Integer.parseInt(inputField.getText().trim());
-                    submissions.add(textFieldNumber);
+                    addSolution(textFieldNumber);
                     inputField.setText("");
                     System.out.println("Number set to: " + textFieldNumber);
                 } catch (NumberFormatException ex) {
@@ -82,6 +91,15 @@ public class Lane extends JPanel {
         ApplyStyles.INPUT_STYLE.on(inputField);
         this.add(inputField);
     }
+
+    public void addSolution(int n){
+        submissions.add(n);
+    }
+    public void setOpAmount(int amount){
+        this.amount = amount;
+        operand.setText("" + amount);
+
+    }
     public void addBlock(int number) {
         Block block = new Block(number, gameContext);
         blocks.add(block);
@@ -96,6 +114,66 @@ public class Lane extends JPanel {
         for (Block block : blocks) {
             block.timeUpdate(timeElapsedMs, GC);
         }
+    }
+}
+class AdditionLane extends Lane{
+    AdditionLane(int x, int y, int amount, GameContext gameContext) {
+        super(x, y, amount, gameContext);
+        //TODO Auto-generated constructor stub
+    }
+    @Override
+    public void addSolution(int n){
+        submissions.add(n + super.amount);
+    }
+    @Override
+    public void setOpAmount(int amount){
+        super.amount = amount;
+        operand.setText("+" + super.amount);
+    }
+}
+class SubtractionLane extends Lane{
+    SubtractionLane(int x, int y, int amount, GameContext gameContext) {
+        super(x, y, amount, gameContext);
+        //TODO Auto-generated constructor stub
+    }
+    @Override
+    public void addSolution(int n){
+        submissions.add(n - super.amount);
+    }
+    @Override
+    public void setOpAmount(int amount){
+        super.amount = amount;
+        operand.setText("-" + super.amount);
+    }
+}
+class MultiplicationLane extends Lane{
+    MultiplicationLane(int x, int y, int amount, GameContext gameContext) {
+        super(x, y, amount, gameContext);
+        //TODO Auto-generated constructor stub
+    }
+    @Override
+    public void addSolution(int n){
+        submissions.add(n * super.amount);
+    }
+    @Override
+    public void setOpAmount(int amount){
+        super.amount = amount;
+        operand.setText("×" + super.amount);
+    }
+}
+class DivisionLane extends Lane{
+    DivisionLane(int x, int y, int amount, GameContext gameContext) {
+        super(x, y, amount, gameContext);
+        //TODO Auto-generated constructor stub
+    }
+    @Override
+    public void addSolution(int n){
+        submissions.add(n / super.amount);
+    }
+    @Override
+    public void setOpAmount(int amount){
+        super.amount = amount;
+        operand.setText("÷" + super.amount);
     }
 }
 
@@ -129,3 +207,4 @@ class Block extends JPanel {
         this.setLocation(this.x, (int) y);
     }
 }
+
