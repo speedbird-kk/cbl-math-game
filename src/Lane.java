@@ -18,7 +18,7 @@ import javax.swing.SwingUtilities;
 
 import Experimentation.view.styles.ApplyStyles;
 import Experimentation.view.styles.DimensionConstants;
-import Experimentation.view.styles.DistanceConstants;
+import Experimentation.view.styles.LengthConstants;
 
 public class Lane extends JPanel {
     GameContext gameContext;
@@ -43,15 +43,12 @@ public class Lane extends JPanel {
 
         // this.setLayout(null); (added this to ApplyStyles.LANE_STYLE)
 
-<<<<<<< HEAD
         this.operand = new JLabel("+10");
         operand.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OPERAND_LABEL.get().width,
                 DimensionConstants.OPERAND_LABEL.get().height);
-=======
         this.operand = new JLabel();
-        operand.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OP_LABEL.get().width,
-                DimensionConstants.OP_LABEL.get().height);
->>>>>>> aa2bb5a8e10fb4fb3442d0a331043842226e8f5a
+        operand.setBounds(0, (int) (5.5 * tileHeight), DimensionConstants.OPERAND_LABEL.get().width,
+                DimensionConstants.OPERAND_LABEL.get().height);
 
         // center horizontally
         operand.setHorizontalAlignment(SwingConstants.CENTER);
@@ -207,7 +204,7 @@ class Block extends JPanel {
         this.setBounds(x, (int) y, DimensionConstants.BLOCK.get().width,DimensionConstants.BLOCK.get().height);
     }
     public void timeUpdate(int t, GameContext GC) {
-        double blockSpeed = (double) DistanceConstants.BLOCK_TRAVEL_DISTANCE.get() / (double) GC.blockTravelTimeS;
+        double blockSpeed = (double) LengthConstants.BLOCK_TRAVEL_DISTANCE.get() / (double) GC.blockTravelTimeS;
         y += blockSpeed * t / 1000.0;
 
         this.setLocation(this.x, (int) y);
