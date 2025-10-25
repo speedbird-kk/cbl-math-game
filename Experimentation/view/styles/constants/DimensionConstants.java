@@ -17,6 +17,12 @@ public enum DimensionConstants {
         FRAME.get().height / 9
     )),
 
+    BLOCK(new Dimension(
+        (int) (GRID.get().width * 1.5),
+        (int) (GRID.get().height * 1.5)
+    )),
+
+
     TITLE_BUTTON(new Dimension(
         GRID.get().width * 6,
         GRID.get().height * 4
@@ -55,12 +61,8 @@ public enum DimensionConstants {
     HEART_LABEL(new Dimension(
         LengthConstants.HEART_WIDTH.get(),
         LengthConstants.HEART_HEIGHT.get()
-    )),
-
-    BLOCK(new Dimension(
-        (int) (GRID.get().width * 1.5),
-        (int) (GRID.get().height * 1.5)
     ));
+
 
     
     private Dimension dimension;
