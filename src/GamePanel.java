@@ -24,6 +24,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     TitleScreenPanel titleScreenPanel;
     Mode1Panel mode1Panel;
+    GameOverScreen gameOverScreen;
 
 
     public GamePanel() {
@@ -76,7 +77,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void updateGame(int timeElapsedMs) {
         if (keyH.wPressed) {
-            timeElapsedMs *= 2;
+            timeElapsedMs *= 10;
         }
         if (gameContext.state == 0) {
             loadState1();
@@ -95,6 +96,23 @@ public class GamePanel extends JPanel implements Runnable {
                 loadState1();
             }
             mode1Panel.timeUpdate(timeElapsedMs);
+            if(mode1Panel.heartDisplay.getNumberOfHearts() == 0){
+                unloadState2();
+                loadState3();
+                mode1Panel = null;
+            }
+        }
+        if (gameContext.state == 3) {
+            if (keyH.escapePressed == true) {
+                unloadState3();
+                loadState1();
+            }
+            if (gameOverScreen.returnToMenuButton.isPressed == true) {
+                unloadState3();
+                loadState1();
+                gameOverScreen.returnToMenuButton.isPressed = false;
+            }
+            gameOverScreen.timeUpdate(timeElapsedMs);
         }
     }
 
@@ -118,5 +136,16 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public void unloadState2() {
         this.remove(mode1Panel);
+    }
+
+    public void loadState3() {
+        if (gameOverScreen == null) {
+            gameOverScreen= new GameOverScreen();
+        }
+        this.add(gameOverScreen);
+        gameContext.state = 3;
+    }
+    public void unloadState3() {
+        this.remove(gameOverScreen);
     }
 }
