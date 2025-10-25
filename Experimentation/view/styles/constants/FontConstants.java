@@ -5,7 +5,9 @@ import java.awt.Font;
 public enum FontConstants {
     BLOCK_LABEL(new Font("Arial", Font.BOLD, 1)),
     OPERAND_LABEL(new Font("Arial", Font.BOLD, 1)),
-    SCORE_LABEL(new Font("Arial", Font.BOLD, 1));
+    SCORE_LABEL(new Font("Arial", Font.BOLD, 1)),
+    LEVEL_LABEL(new Font("Arial", Font.BOLD, 1)),
+    INPUT_TEXTFIELD(new Font("Arial", Font.BOLD, 1));
 
     private Font font;
 

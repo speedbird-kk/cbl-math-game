@@ -1,5 +1,5 @@
-package Experimentation.view.styles;
-
+import Experimentation.view.styles.constants.ColourConstants;
+import Experimentation.view.styles.constants.DimensionConstants;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.BorderFactory;
@@ -8,9 +8,6 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.StyleConstants.ColorConstants;
-
-import Experimentation.view.styles.constants.ColourConstants;
-import Experimentation.view.styles.constants.DimensionConstants;
 
 public enum ApplyStyles {
     LANE_STYLE {
