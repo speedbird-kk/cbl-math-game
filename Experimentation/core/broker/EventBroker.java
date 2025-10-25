@@ -1,4 +1,4 @@
-package Experimentation.core.pubsub;
+package Experimentation.core.broker;
 
 import Experimentation.core.events.Subscribable;
 import java.util.HashMap;
@@ -46,13 +46,14 @@ public final class EventBroker {
     /**
      * Allow subscribers to unsubscribe from event and its associated consumer.
      */
-    public synchronized void unsubscribe(
-        Class<? extends Subscribable> event, Consumer<? super Subscribable> consumer) {
+    @SuppressWarnings("unchecked")
+    public synchronized <T extends Subscribable> void unsubscribe(
+        Class<T> event, Consumer<T> consumer) {
 
         Set<Consumer<? super Subscribable>> consumers = subscribers.get(event);
 
         if (consumers != null) {
-            consumers.remove(consumer);
+            consumers.remove((Consumer<? super Subscribable>) consumer);
             
             if (consumers.isEmpty()) {
                 subscribers.remove(event);
@@ -62,6 +63,7 @@ public final class EventBroker {
 
     /**
      * Applies the consumer on all subscribed to the event when publisher publishes the event.
+     * Runs on Event Dispatch Thread (EDT).
      */
     public void publish(Subscribable event) {
         Set<Consumer<? super Subscribable>> consumers = subscribers.get(event.getClass());

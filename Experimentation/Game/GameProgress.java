@@ -1,11 +1,9 @@
 package Experimentation.game;
 
-import Experimentation.core.observer.Subject;
-
 /**
  * Singleton.
  */
-public final class GameProgress implements Subject {
+public final class GameProgress {
     private static GameProgress INSTANCE;
 
     private int hearts;

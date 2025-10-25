@@ -3,10 +3,12 @@ package Experimentation.components.lanes;
 import Experimentation.components.block.Block;
 import Experimentation.components.block.creator.BlockCreatorStrategy;
 import Experimentation.components.input.Input;
-import Experimentation.core.observer.Subject;
+import Experimentation.core.broker.EventBroker;
+import Experimentation.core.broker.Publishes;
+import Experimentation.core.events.BlockCreatedEvent;
 import Experimentation.game.levels.LevelBlockCreatorContext;
 
-public abstract class Lane implements LaneState, Subject {
+public abstract class Lane implements LaneState {
     protected final int operand;
     protected final String operationSymbol;
     protected final LaneType type;
@@ -37,8 +39,12 @@ public abstract class Lane implements LaneState, Subject {
     }
 
     @Override
+    @Publishes(event = BlockCreatedEvent.class)
     public Block createBlock(LevelBlockCreatorContext context) {
-        return blockCreatorStrategy.createBlock(context);
+        Block newBlock = blockCreatorStrategy.createBlock(context);
+        EventBroker.getInstance().publish(new BlockCreatedEvent(newBlock, type));
+
+        return newBlock;
     }
 
     @Override
