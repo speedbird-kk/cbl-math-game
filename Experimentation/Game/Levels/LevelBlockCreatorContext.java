@@ -2,7 +2,7 @@ package Experimentation.game.levels;
 
 import java.util.List;
 
-public interface LevelBlockCreatorContext {
+public sealed interface LevelBlockCreatorContext permits LevelContext {
     public List<Integer> getPossibleProducts();
 
     public List<Integer> getPossibleQuotients();

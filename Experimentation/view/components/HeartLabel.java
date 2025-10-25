@@ -1,5 +1,6 @@
 package Experimentation.view.components;
 
+import Experimentation.core.observer.Observer;
 import Experimentation.utils.SwingUtils;
 import Experimentation.view.styles.Style;
 import Experimentation.view.styles.constants.LengthConstants;

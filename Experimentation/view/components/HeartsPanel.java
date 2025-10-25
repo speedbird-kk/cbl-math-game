@@ -1,12 +1,14 @@
 package Experimentation.view.components;
 
+import Experimentation.core.observer.Observer;
+import Experimentation.core.observer.Subject;
 import Experimentation.utils.SwingUtils;
 import Experimentation.view.styles.Style;
 import Experimentation.view.styles.constants.LengthConstants;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class HeartsPanel extends JPanel {
+public class HeartsPanel extends JPanel implements Observer {
     /**
      * Display hearts or otherwise number with a heart if overflow.
      */
@@ -25,5 +27,9 @@ public class HeartsPanel extends JPanel {
                 this.add(new HeartLabel());
             }
         }
+    }
+
+    public void update(Subject subject) {
+
     }
 }

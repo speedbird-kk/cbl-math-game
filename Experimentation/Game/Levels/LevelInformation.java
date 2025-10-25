@@ -1,6 +1,6 @@
 package Experimentation.game.levels;
 
-public interface LevelInformation {
+public sealed interface LevelInformation permits LevelContext {
     public int getTravelTime();
 
     public int getCurrentLevel();

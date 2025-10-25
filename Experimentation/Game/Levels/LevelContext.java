@@ -4,7 +4,7 @@ import Experimentation.core.observer.Observer;
 import Experimentation.core.observer.Subject;
 import java.util.List;
 
-public class LevelContext
+public final class LevelContext
     implements LevelStrategyContext, LevelBlockCreatorContext, LevelInformation, Subject {
 
     private LevelStrategy strategy;

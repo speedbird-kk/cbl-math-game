@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 
-public class GameContext implements GameStatesContext, GameLevelStrategyContext {
+public final class GameContext implements GameStatesContext, GameLevelStrategyContext {
     private GameProgress progress;
     private MainFrame frame;
     private List<Block> activeBlocks;

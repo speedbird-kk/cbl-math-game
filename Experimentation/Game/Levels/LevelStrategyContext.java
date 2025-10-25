@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Interface exposing only what is necessary of the context for level strategies.
  */
-public interface LevelStrategyContext {
+public sealed interface LevelStrategyContext permits LevelContext {
     public void setTravelTime(int travelTime);
 
     public void setCurrentLevel(int currentLevel);
