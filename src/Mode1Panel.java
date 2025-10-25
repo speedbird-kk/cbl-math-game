@@ -21,8 +21,8 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import Experimentation.view.styles.ApplyStyles;
-import Experimentation.view.styles.DimensionConstants;
-import Experimentation.view.styles.LengthConstants;
+import Experimentation.view.styles.constants.DimensionConstants;
+import Experimentation.view.styles.constants.LengthConstants;
 
 public class Mode1Panel extends JPanel {
     GameContext gameContext;

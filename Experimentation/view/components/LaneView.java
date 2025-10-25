@@ -1,18 +1,19 @@
 package Experimentation.view.components;
 
+import Experimentation.view.styles.ApplyStyles;
+import Experimentation.view.styles.Style;
+import Experimentation.view.styles.constants.DimensionConstants;
+import Experimentation.view.styles.constants.LengthConstants;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
-import Experimentation.view.styles.ApplyStyles;
-import Experimentation.view.styles.DimensionConstants;
-import Experimentation.view.styles.LengthConstants;
-import Experimentation.view.styles.Style;
-
 public class LaneView extends JPanel {
     private JLabel operand;
     private JTextField inputField;
+
     public LaneView(int x, int y) {
         this.setBounds(
             x,

@@ -2,9 +2,10 @@ package Experimentation.view.components;
 
 import Experimentation.components.block.Block;
 import Experimentation.view.styles.ApplyStyles;
-import Experimentation.view.styles.BoundsConstants;
-import Experimentation.view.styles.DimensionConstants;
 import Experimentation.view.styles.Style;
+import Experimentation.view.styles.constants.BoundsConstants;
+import Experimentation.view.styles.constants.DimensionConstants;
+
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

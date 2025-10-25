@@ -1,6 +1,4 @@
-package Experimentation.view.styles;
-
-import Experimentation.view.styles.DimensionConstants;
+package Experimentation.view.styles.constants;
 
 public enum LengthConstants {
     BLOCK_TRAVEL_DISTANCE(DimensionConstants.LANE.get().height
@@ -16,7 +14,7 @@ public enum LengthConstants {
     private LengthConstants(int length) {
         this.length = length;
     }
-    
+
     public int get() {
         return length;
     }

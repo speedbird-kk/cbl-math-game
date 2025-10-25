@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.text.StyleConstants.ColorConstants;
 
+import Experimentation.view.styles.constants.ColourConstants;
+import Experimentation.view.styles.constants.DimensionConstants;
+
 public enum ApplyStyles {
     LANE_STYLE {
         @Override

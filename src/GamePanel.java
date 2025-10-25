@@ -10,7 +10,7 @@ import java.awt.Toolkit;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
 
-import Experimentation.view.styles.DimensionConstants;
+import Experimentation.view.styles.constants.DimensionConstants;
 
 public class GamePanel extends JPanel implements Runnable {
     final Dimension frameSize = new Dimension(300, 300);

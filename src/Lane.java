@@ -17,8 +17,8 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 import Experimentation.view.styles.ApplyStyles;
-import Experimentation.view.styles.DimensionConstants;
-import Experimentation.view.styles.LengthConstants;
+import Experimentation.view.styles.constants.DimensionConstants;
+import Experimentation.view.styles.constants.LengthConstants;
 
 public class Lane extends JPanel {
     GameContext gameContext;

@@ -3,7 +3,7 @@ package Experimentation.view.frame;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import Experimentation.view.styles.DimensionConstants;
+import Experimentation.view.styles.constants.DimensionConstants;
 
 /**
  * Singleton.

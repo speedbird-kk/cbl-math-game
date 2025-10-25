@@ -1,4 +1,4 @@
-package Experimentation.view.styles;
+package Experimentation.view.styles.constants;
 
 import java.awt.Dimension;
 import java.awt.HeadlessException;

@@ -11,6 +11,9 @@ public class Demo {
         frame.setSize(400, 400);
         frame.setVisible(true);
 
+        JLabel test = new JLabel("Hello world");
+        Style.OPERAND_LABEL.accept(test);
+
         JLabel label = new JLabel("""
             <html>
             <h1><u>Demonstration</u></h1>
@@ -36,5 +39,6 @@ public class Demo {
         
         frame.add(label);
         frame.add(btn);
+        frame.add(test);
     }
 }

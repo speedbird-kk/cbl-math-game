@@ -1,4 +1,4 @@
-package Experimentation.view.styles;
+package FormerExperimentation;
 
 import java.awt.Color;
 import java.util.function.Consumer;
