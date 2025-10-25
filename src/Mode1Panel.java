@@ -84,19 +84,19 @@ public class Mode1Panel extends JPanel {
 
         {
             int laneX = tileWidth;
-            Lane lane = new AdditionLane(laneX, tileHeight, 10, gameContext);
+            Lane lane = new AdditionLane(laneX, tileHeight, random.nextInt(2, 11), gameContext);
             lanes.add(lane);
             this.add(lane);
             laneX += tileWidth * 2;
-            lane = new SubtractionLane(laneX, tileHeight, 10, gameContext);
+            lane = new SubtractionLane(laneX, tileHeight, random.nextInt(2, 11), gameContext);
             lanes.add(lane);
             this.add(lane);
             laneX += tileWidth * 2;
-            lane = new MultiplicationLane(laneX, tileHeight, 10, gameContext);
+            lane = new MultiplicationLane(laneX, tileHeight, random.nextInt(2, 11), gameContext);
             lanes.add(lane);
             this.add(lane);
             laneX += tileWidth * 2;
-            lane = new DivisionLane(laneX, tileHeight, 10, gameContext);
+            lane = new DivisionLane(laneX, tileHeight, random.nextInt(2, 11), gameContext);
             lanes.add(lane);
             this.add(lane);
             laneX += tileWidth * 2;
@@ -129,24 +129,35 @@ public class Mode1Panel extends JPanel {
     int level = 0;
     ArrayDeque<Integer> numbersLeft = new ArrayDeque<Integer>();
 
+    int targetNumberOfBlocks = 1;
+    int blocksLeft = 1;
+    int blocksDestroyed = 0;
+    int blocksDestroyedLevel = 0;
+    double secondsBetweenBlocks = 13;
+
     void timeUpdate(int timeElapsedMs) {
         timePassedMs += timeElapsedMs;
         levelTimePassedMs += timeElapsedMs;
 
-        if (numbersLeft.isEmpty()) {
+        if (blocksDestroyedLevel >= targetNumberOfBlocks) {
             level++;
             levelTimePassedMs = 0;
             aux = 0;
-            gameContext.blockTravelTimeS -= 5;
-            levelLabel.setText("Level: " + level);
-            for (int i = 0; i < 5 * level; i++) {
-                numbersLeft.add(random.nextInt(5 * level));
-            }
+            targetNumberOfBlocks += 3;
+            blocksLeft = targetNumberOfBlocks;
+            blocksDestroyedLevel = 0;
+            gameContext.blockTravelTimeS -= 5.0 / level;
+            secondsBetweenBlocks -= 3.0 / level;
+            System.out.println("traveltime:" + gameContext.blockTravelTimeS);
+            System.out.println("secbet:" + secondsBetweenBlocks);
         }
 
-        if (levelTimePassedMs > aux * 5000) {
-            Lane lane = lanes.get(random.nextInt(4));
-            lane.addBlock(numbersLeft.poll());
+        if (levelTimePassedMs > aux * 1000 * secondsBetweenBlocks) {
+            if (blocksLeft > 0) {
+                Lane lane = lanes.get(random.nextInt(4));
+                lane.addBlock(random.nextInt(targetNumberOfBlocks * (level + 1)));
+                blocksLeft--;
+            }
 
             aux++;
         }
@@ -158,6 +169,8 @@ public class Mode1Panel extends JPanel {
                 if (firstBlock != null) {
                     if (submission == firstBlock.number) {
                         lane.removeBlock(firstBlock);
+                        blocksDestroyedLevel++;
+                        blocksDestroyed++;
                     }
                 }
             }
@@ -167,6 +180,8 @@ public class Mode1Panel extends JPanel {
 
                 if ((int) block.y > LengthConstants.BLOCK_TRAVEL_DISTANCE.get()) {
                     lane.removeBlock(block);
+                    blocksDestroyedLevel++;
+                    blocksDestroyed++;
                     if (heartDisplay.getNumberOfHearts() > 0) {
                         heartDisplay.removeHeart();
                     }
@@ -174,6 +189,8 @@ public class Mode1Panel extends JPanel {
             }
         }
 
+        scoreLabel.setText("Score: " + blocksDestroyed);
+        levelLabel.setText("Level: " + level);
         heartDisplay.timeUpdate(timeElapsedMs);
     }
 }
