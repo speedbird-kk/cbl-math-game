@@ -3,7 +3,7 @@ package Experimentation.view.windows;
 import Experimentation.core.observer.Observer;
 import Experimentation.core.observer.Subject;
 import Experimentation.game.GameProgress;
-import Experimentation.game.levels.LevelTravelTime;
+import Experimentation.game.levels.LevelInformation;
 import Experimentation.utils.SwingUtils;
 import Experimentation.view.components.LaneView;
 import Experimentation.view.components.LevelLabel;

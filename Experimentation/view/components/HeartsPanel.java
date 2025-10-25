@@ -30,6 +30,6 @@ public class HeartsPanel extends JPanel implements Observer {
     }
 
     public void update(Subject subject) {
-
+        
     }
 }
