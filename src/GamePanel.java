@@ -25,6 +25,7 @@ public class GamePanel extends JPanel implements Runnable {
     TitleScreenPanel titleScreenPanel;
     Mode1Panel mode1Panel;
 
+
     public GamePanel() {
         frameSize.setSize(DimensionConstants.FRAME.get());
         gameContext = new GameContext(frameSize.getWidth(), frameSize.getHeight());
@@ -99,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void loadState1() {
         if (titleScreenPanel == null) {
-            titleScreenPanel = new TitleScreenPanel(gameContext);
+            titleScreenPanel = new TitleScreenPanel();
         }
         this.add(titleScreenPanel);
         gameContext.state = 1;
