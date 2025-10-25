@@ -8,6 +8,8 @@ import java.util.List;
 public interface LevelStrategyContext {
     public void setTravelTime(int travelTime);
 
+    public void setCurrentLevel(int currentLevel);
+
     public void setPossibleProducts(List<Integer> possibleProducts);
 
     public void setPossibleQuotients(List<Integer> possibleQuotients);

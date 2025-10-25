@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 
-import Experimentation.view.styles.ApplyStyles;
 import Experimentation.view.styles.constants.DimensionConstants;
 
 public class TitleScreenPanel extends JPanel {

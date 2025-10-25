@@ -4,10 +4,14 @@ import Experimentation.view.styles.constants.BoundsConstants;
 import Experimentation.view.styles.constants.ColourConstants;
 import Experimentation.view.styles.constants.DimensionConstants;
 import Experimentation.view.styles.constants.FontConstants;
+import Experimentation.view.styles.constants.LengthConstants;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.util.function.Consumer;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -17,7 +21,19 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+/**
+ * .=== ALL STYLES ===.
+ */
 public final class Style {
+    /**
+     * .=== FRAME STYLES ===.
+     */
+    public static final Consumer<JFrame> MAIN_FRAME = frame -> {
+        frame.setSize(DimensionConstants.FRAME.get());
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+    };
+
     /**
      * .=== PANEL STYLES ===.
      */
@@ -43,6 +59,12 @@ public final class Style {
     public static final Consumer<JPanel> TITLE_SCREEN_PANEL = panel -> {
         panel.setLayout(null);
         panel.setBackground(ColourConstants.TITLE_SCREEN_BACKGROUND.get());
+    };
+
+    public static final Consumer<JPanel> HEARTS_PANEL = panel -> {
+        panel.setBounds(BoundsConstants.HEARTS_PANEL.get());
+        panel.setOpaque(false);
+        panel.setLayout(new FlowLayout(FlowLayout.RIGHT));
     };
     
     /**
@@ -87,6 +109,15 @@ public final class Style {
         label.setBorder(new EmptyBorder(0, 10, 0, 0));
     };
 
+    public static final Consumer<JLabel> HEART_LABEL = label -> {
+        label.setPreferredSize(DimensionConstants.HEART_LABEL.get());
+    };
+
+    public static final Consumer<JLabel> HEART_NUMERIC_LABEL = label -> {
+        label.setFont(FontConstants.HEART_NUMERIC_LABEL.get()
+            .deriveFont((float) 0.5 * DimensionConstants.HEART_LABEL.get().height));
+    };
+
     /**
      * .=== TEXT FIELD STYLES ===.
      */
@@ -104,9 +135,11 @@ public final class Style {
         textField.setBounds(BoundsConstants.INPUT_TEXTFIELD_BOUNDS.get());
     };
 
-    public static final Consumer<JTextField> INPUT_TEXTFIELD_WRONG = textField -> {
-        textField.setBackground(ColourConstants.INPUT_BACKGROUND_WRONG.get());
-    };
+    public static final Consumer<JTextField> INPUT_TEXTFIELD_WRONG = 
+        INPUT_TEXTFIELD.andThen(
+            textField -> textField.setBackground(ColourConstants.INPUT_BACKGROUND_WRONG.get()));
+
+    public static final Consumer<JTextField> INPUT_TEXTFIELD_CORRECT = INPUT_TEXTFIELD;
 
     /**
      * .=== TEXT AREA STYLES ===.

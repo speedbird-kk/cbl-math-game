@@ -23,6 +23,11 @@ public class LevelOneStrategy implements LevelStrategy {
     }
 
     @Override
+    public void setCurrentLevel(LevelStrategyContext context) {
+        context.setCurrentLevel(1);
+    }
+
+    @Override
     public void setProductLaneNumbers(
         LevelStrategyContext levelContext, GameLevelStrategyContext gameContext) {
         

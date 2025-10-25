@@ -6,8 +6,9 @@ public enum LengthConstants {
             - DimensionConstants.OPERAND_LABEL.get().height),
     
     GRID_WIDTH(DimensionConstants.GRID.get().width),
-    GRID_HEIGHT(DimensionConstants.GRID.get().height);
-
+    GRID_HEIGHT(DimensionConstants.GRID.get().height),
+    HEART_WIDTH(LengthConstants.GRID_WIDTH.get()),
+    HEART_HEIGHT(LengthConstants.GRID_HEIGHT.get());
 
     int length;
 

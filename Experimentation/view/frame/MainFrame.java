@@ -1,9 +1,8 @@
 package Experimentation.view.frame;
 
+import Experimentation.view.styles.Style;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import Experimentation.view.styles.constants.DimensionConstants;
 
 /**
  * Singleton.
@@ -14,9 +13,7 @@ public final class MainFrame {
 
     private MainFrame() {
         frame = new JFrame("Falling maths !");
-        frame.setSize(DimensionConstants.FRAME.get());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setVisible(true);
+        Style.MAIN_FRAME.accept(frame);
     }
 
     public static synchronized MainFrame getInstance() {

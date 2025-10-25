@@ -12,6 +12,13 @@ public enum BoundsConstants {
         DimensionConstants.BLOCK.get().height
     )),
 
+    HEARTS_PANEL(new Rectangle(
+        15 * LengthConstants.GRID_WIDTH.get() - 5 * LengthConstants.HEART_WIDTH.get(),
+        LengthConstants.GRID_HEIGHT.get(),
+        5 * LengthConstants.HEART_WIDTH.get(),
+        LengthConstants.HEART_HEIGHT.get()
+    )),
+
     SCORE_LABEL_BOUNDS(new Rectangle(
         12 * LengthConstants.GRID_WIDTH.get(),
         2 * LengthConstants.GRID_HEIGHT.get(),

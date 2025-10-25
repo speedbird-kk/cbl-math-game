@@ -1,11 +1,9 @@
 package Experimentation.view.components;
 
 import Experimentation.components.block.Block;
-import Experimentation.view.styles.ApplyStyles;
 import Experimentation.view.styles.Style;
 import Experimentation.view.styles.constants.BoundsConstants;
 import Experimentation.view.styles.constants.DimensionConstants;
-
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,13 +17,12 @@ public class BlockView extends JPanel {
         this.block = block;
 
         if (block.getIsRed()) {
-            ApplyStyles.BLOCK_RED_STYLE.on(this);
+            Style.RED_BLOCK_PANEL.accept(this);
         } else {
-            ApplyStyles.BLOCK_MAIN_STYLE.on(this);
+            Style.BLOCK_PANEL.accept(this);
         }
 
         JLabel label = new JLabel("" + block.getNumber());
-        label.setForeground(this.getForeground());
         Style.BLOCK_LABEL.accept(label);
 
         this.add(label, BorderLayout.CENTER);

@@ -1,14 +1,15 @@
 package Experimentation.game.levels;
 
+import Experimentation.core.observer.Observer;
+import Experimentation.core.observer.Subject;
 import java.util.List;
 
-import Experimentation.core.observer.Subject;
-
 public class LevelContext
-    implements LevelStrategyContext, LevelBlockCreatorContext, LevelTravelTime, Subject {
+    implements LevelStrategyContext, LevelBlockCreatorContext, LevelInformation, Subject {
 
     private LevelStrategy strategy;
     private int travelTime;
+    private int currentLevel;
     private List<Integer> possibleProducts;
     private List<Integer> possibleQuotients;
     private List<Integer> possibleSums;
@@ -19,9 +20,17 @@ public class LevelContext
         this.strategy = strategy;
     }
 
+    /**
+     * .=== Implementations of abstract methods inherited from LevelStrategyContext ===.
+     */
     @Override
     public void setTravelTime(int travelTime) {
         this.travelTime = travelTime;
+    }
+
+    @Override
+    public void setCurrentLevel(int currentLevel) {
+        this.currentLevel = currentLevel;
     }
 
     @Override
@@ -49,11 +58,9 @@ public class LevelContext
         this.scoreMultiplier = scoreMultiplier;
     }
 
-    @Override
-    public int getTravelTime() {
-        return travelTime;
-    }
-
+    /**
+     * .=== Implementations of abstract methods inherited from LevelBlockCreatorContext ===.
+     */
     @Override
     public List<Integer> getPossibleProducts() {
         return possibleProducts;
@@ -72,5 +79,36 @@ public class LevelContext
     @Override
     public List<Integer> getPossibleDifferences() {
         return possibleDifferences;
+    }
+
+    /**
+     * .=== Implementations of abstract methods inherited from LevelInformation ===.
+     */
+    @Override
+    public int getTravelTime() {
+        return travelTime;
+    }
+
+    @Override
+    public int getCurrentLevel() {
+        return currentLevel;
+    }
+
+    /**
+     * .=== Implementations of abstract methods inherited from Subject ===.
+     */
+    @Override
+    public void attach(Observer observer) {
+
+    }
+
+    @Override
+    public void detach(Observer observer) {
+
+    }
+
+    @Override
+    public void notifyObservers() {
+
     }
 }
