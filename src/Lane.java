@@ -16,7 +16,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-import Experimentation.view.styles.ApplyStyles;
 import Experimentation.view.styles.constants.DimensionConstants;
 import Experimentation.view.styles.constants.LengthConstants;
 

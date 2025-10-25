@@ -24,7 +24,7 @@ public enum ApplyStyles {
             c.setOpaque(true);
             c.setBackground(ColourConstants.OPERAND_BACKGROUND.get());
             c.setForeground(Color.WHITE);
-            c.setFont(c.getFont().deriveFont((float) 0.3 * DimensionConstants.OP_LABEL.get().height));
+            c.setFont(c.getFont().deriveFont((float) 0.3 * DimensionConstants.OPERAND_LABEL.get().height));
         }
     },
     INPUT_STYLE {
