@@ -5,13 +5,16 @@ import Experimentation.components.lanes.LaneType;
 import Experimentation.core.broker.EventBroker;
 import Experimentation.core.broker.SubscribesTo;
 import Experimentation.core.events.BlockCreatedEvent;
+import Experimentation.core.events.BlockHasHitBottomEvent;
 import Experimentation.core.events.CorrectResponseEvent;
+import Experimentation.core.events.TravelTimeChangedEvent;
 import Experimentation.core.events.WrongResponseEvent;
+import Experimentation.game.levels.LevelOneStrategy;
 import Experimentation.utils.SwingUtils;
 import Experimentation.view.styles.Style;
 import Experimentation.view.styles.constants.DimensionConstants;
 import Experimentation.view.styles.constants.LengthConstants;
-
+import Experimentation.view.styles.constants.TimerConstants;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -26,10 +29,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class LaneView extends JPanel implements ActionListener {
+    private static final int DEFAULT_TRAVEL_TIME_MS = LevelOneStrategy.TRAVEL_TIME_MS;
+
     private final JLabel operand;
     private final JTextField input;
     private final LaneType laneType;
     private List<BlockView> activeBlocks = new ArrayList<>();
+    private int deltaY;
     private String rawInput;
 
     /**
@@ -44,6 +50,13 @@ public class LaneView extends JPanel implements ActionListener {
             DimensionConstants.LANE.get().width,
             DimensionConstants.LANE.get().height
         );
+
+        Style.LANE_PANEL.accept(this);
+
+        // Initialise deltaY to Level 1 settings
+        this.deltaY = 
+            (LengthConstants.BLOCK_TRAVEL_DISTANCE.get() / DEFAULT_TRAVEL_TIME_MS)
+            * TimerConstants.DELAY_MS.get();
 
         this.operand = new JLabel();
         Style.OPERAND_LABEL.accept(operand);
@@ -60,9 +73,43 @@ public class LaneView extends JPanel implements ActionListener {
         broker.subscribe(CorrectResponseEvent.class, this::correctAnswer);
     }
 
+    public void updateBlocks() {
+        for (BlockView activeBlock : activeBlocks) {
+            activeBlock.moveDown(deltaY);
+        }
+    }
+
+    public void actionPerformed(ActionEvent evt) {
+        rawInput = input.getText();
+    }
+
     /**
-     * Adds a new block on event if it is of the same lane type as this.
+     * .=== Getters ===.
      */
+    // region getters
+    public LaneType getLaneType() {
+        return laneType;
+    }
+
+    public List<BlockView> getActiveBlocks() {
+        return activeBlocks;
+    }
+
+    public int getDeltaY() {
+        return deltaY;
+    }
+
+    public String getRawInput() {
+        return rawInput;
+    }
+    // endregion
+
+    /**
+     * .=== Subscribers and publishers ===.
+     */
+    // region subscribers and publishers
+
+    // Adds a new block on event if it is of the same lane type as this.
     @SubscribesTo(event = BlockCreatedEvent.class)
     public void addBlockToLane(BlockCreatedEvent event) {
         if (event.laneType() == laneType) {
@@ -90,7 +137,7 @@ public class LaneView extends JPanel implements ActionListener {
     @SubscribesTo(event = CorrectResponseEvent.class)
     public void correctAnswer(CorrectResponseEvent event) {
         List<BlockView> blocksToRemove = activeBlocks.stream()
-            .filter(blockView -> blockView.getBlock().equals(event.currentBlock()))
+            .filter(blockView -> blockView.getBlock() == event.currentBlock())
             .collect(Collectors.toList());
         
         if (!blocksToRemove.isEmpty()) {
@@ -102,15 +149,30 @@ public class LaneView extends JPanel implements ActionListener {
         }
     }
 
-    public void actionPerformed(ActionEvent evt) {
-        rawInput = input.getText();
+    /**
+     * Updates delta y value when travel time changes.
+     * deltaY [px] = (travelDistance [px] / travelTime [ms]) * timerDelay [ms]
+     */
+    @SubscribesTo(event = TravelTimeChangedEvent.class)
+    public void updateDeltaY(TravelTimeChangedEvent event) {
+        this.deltaY = 
+            (LengthConstants.BLOCK_TRAVEL_DISTANCE.get() / event.travelTime())
+            * TimerConstants.DELAY_MS.get();
     }
 
-    public LaneType getLaneType() {
-        return laneType;
+    @SubscribesTo(event = BlockHasHitBottomEvent.class)
+    public void removeBlockFromLane(BlockHasHitBottomEvent event) {
+        List<BlockView> blocksToRemove = activeBlocks.stream()
+            .filter(blockView -> blockView.getBlock() == event.block())
+            .collect(Collectors.toList());
+        
+        if (!blocksToRemove.isEmpty()) {
+            Style.INPUT_TEXTFIELD_CORRECT.accept(input);
+            blocksToRemove.forEach((blockView -> {
+                this.remove(blockView);
+                activeBlocks.remove(blockView);
+            }));
+        }
     }
-
-    public String getRawInput() {
-        return rawInput;
-    }
+    // endregion
 }

@@ -2,13 +2,13 @@ package Experimentation.game.levels;
 
 import java.util.List;
 
+import Experimentation.core.events.LevelChangedEvent;
+
 /**
  * Interface exposing only what is necessary of the context for level strategies.
  */
 public sealed interface LevelStrategyContext permits LevelContext {
     public void setTravelTime(int travelTime);
-
-    public void setCurrentLevel(int currentLevel);
 
     public void setPossibleProducts(List<Integer> possibleProducts);
 

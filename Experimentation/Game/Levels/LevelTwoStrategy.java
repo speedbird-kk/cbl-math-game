@@ -5,17 +5,12 @@ import Experimentation.core.GameLevelStrategyContext;
 public class LevelTwoStrategy implements LevelStrategy {
     public static final int MAX_MULTIPLIER = 10;
     public static final int MAX_ANSWER = 100;
-    public static final int TRAVEL_TIME = 15;
+    public static final int TRAVEL_TIME_MS = 8_000;
     public static final int SCORE_MULTIPLIER = 200;
 
     @Override
     public void setTravelTime(LevelStrategyContext context) {
-        context.setTravelTime(TRAVEL_TIME);
-    }
-
-    @Override
-    public void setCurrentLevel(LevelStrategyContext context) {
-        context.setCurrentLevel(2);
+        context.setTravelTime(TRAVEL_TIME_MS);
     }
 
     @Override

@@ -5,6 +5,8 @@ import Experimentation.core.broker.Publishes;
 import Experimentation.core.broker.SubscribesTo;
 import Experimentation.core.events.LevelChangedEvent;
 import Experimentation.core.events.TravelTimeChangedEvent;
+import Experimentation.game.GameProgress;
+
 import java.util.List;
 
 public final class LevelContext
@@ -21,42 +23,12 @@ public final class LevelContext
     private int scoreMultiplier;
 
     /**
-     * Sets strategy on LevelChangedEvent depending on updatedLevel record component.
-     */
-    @SubscribesTo(event = LevelChangedEvent.class)
-    public void setStrategy(LevelChangedEvent event) {
-        int updatedLevel = event.updatedLevel();
-
-        if (updatedLevel == 1) {
-            setStrategy(new LevelOneStrategy());
-        } else if (updatedLevel == 2) {
-            setStrategy(new LevelTwoStrategy());
-        } else if (updatedLevel == 3) {
-            setStrategy(new LevelThreeStrategy());
-        } else if (updatedLevel > 3) {
-            setStrategy(new LevelHigherStrategy(updatedLevel));
-        }
-    }
-
-    private void setStrategy(LevelStrategy strategy) {
-        this.strategy = strategy;
-    }
-
-    /**
      * .=== Implementations of abstract methods inherited from LevelStrategyContext ===.
      */
+    // region abstract methods inherited from LevelStrategyContext
     @Override
-    @Publishes(event = TravelTimeChangedEvent.class)
     public void setTravelTime(int travelTime) {
         this.travelTime = travelTime;
-        EventBroker.getInstance().publish(new TravelTimeChangedEvent(travelTime));
-    }
-
-    @Override
-    @Publishes(event = LevelChangedEvent.class)
-    public void setCurrentLevel(int currentLevel) {
-        this.currentLevel = currentLevel;
-        EventBroker.getInstance().publish(new LevelChangedEvent(currentLevel));
     }
 
     @Override
@@ -83,10 +55,12 @@ public final class LevelContext
     public void setScoreMultiplier(int scoreMultiplier) {
         this.scoreMultiplier = scoreMultiplier;
     }
+    // endregion
 
     /**
      * .=== Implementations of abstract methods inherited from LevelBlockCreatorContext ===.
      */
+    // region abstract methods inherited from LevelBlockCreatorContext
     @Override
     public List<Integer> getPossibleProducts() {
         return possibleProducts;
@@ -106,10 +80,12 @@ public final class LevelContext
     public List<Integer> getPossibleDifferences() {
         return possibleDifferences;
     }
+    // endregion
 
     /**
      * .=== Implementations of abstract methods inherited from LevelInformation ===.
      */
+    //region abstract methods inherited from LevelInformation
     @Override
     public int getTravelTime() {
         return travelTime;
@@ -119,12 +95,35 @@ public final class LevelContext
     public int getCurrentLevel() {
         return currentLevel;
     }
+    // endregion
 
     /**
      * .=== Implementations of abstract methods inherited from LevelScoringContext ===.
      */
+    // region abstract methods inherited from LevelScoringContext
     @Override
     public int getScoreMultiplier() {
         return scoreMultiplier;
     }
+    //endregion
+
+    /**
+     * .=== Subscription and Publisher methods ===.
+     */
+    //region subscription and publisher methods
+    @SubscribesTo(event = LevelChangedEvent.class)
+    @Publishes(event = TravelTimeChangedEvent.class)
+    public void onLevelChanged(LevelChangedEvent event) {
+        this.currentLevel = event.updatedLevel();
+        this.strategy = switch (currentLevel) {
+            case 1 -> new LevelOneStrategy();
+            case 2 -> new LevelTwoStrategy();
+            case 3 -> new LevelThreeStrategy();
+            default -> new LevelHigherStrategy(currentLevel);
+        };
+
+        strategy.setTravelTime(GameProgress.getInstance().getLevelContext());
+        EventBroker.getInstance().publish(new TravelTimeChangedEvent(travelTime));
+    }
+    // endregion
 }

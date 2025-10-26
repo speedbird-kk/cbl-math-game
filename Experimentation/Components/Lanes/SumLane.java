@@ -2,12 +2,14 @@ package Experimentation.components.lanes;
 
 import Experimentation.components.block.creator.SumLaneBlockCreator;
 import Experimentation.components.input.Input;
+import Experimentation.game.GameProgress;
 
 public class SumLane extends Lane {
     public static final int IDENTITY = 0;
 
     public SumLane(int operand) {
-        super(operand, LaneType.SUM, "+", new SumLaneBlockCreator());
+        super(operand, LaneType.SUM, "+",
+            new SumLaneBlockCreator(), GameProgress.getInstance().getLevelContext());
     }
 
     @Override

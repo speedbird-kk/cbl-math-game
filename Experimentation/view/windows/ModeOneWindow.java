@@ -2,11 +2,10 @@ package Experimentation.view.windows;
 
 import Experimentation.components.lanes.LaneType;
 import Experimentation.core.events.BlockCreatedEvent;
-import Experimentation.core.observer.Observer;
-import Experimentation.core.observer.Subject;
 import Experimentation.game.GameProgress;
 import Experimentation.game.levels.LevelInformation;
 import Experimentation.utils.SwingUtils;
+import Experimentation.view.components.BlockView;
 import Experimentation.view.components.LaneView;
 import Experimentation.view.components.LevelLabel;
 import Experimentation.view.components.ScoreLabel;
@@ -28,6 +27,8 @@ public class ModeOneWindow implements GameWindow {
     private GameProgress progress;
 
     public ModeOneWindow() {
+        // NOTE: Make sure GameProgress and its LevelContext are initialised first !
+
         panel = new JPanel();
 
         for (int i = 0; i < LaneType.values().length; i++) {
@@ -35,7 +36,7 @@ public class ModeOneWindow implements GameWindow {
                 LaneType.values()[i],
                 i * DimensionConstants.LANE.get().width
             );
-            
+
             lanes.add(lane);
             lanesPanel.add(lane);
         }
@@ -61,6 +62,9 @@ public class ModeOneWindow implements GameWindow {
     public void update() {
         ActionListener performer = new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
+                for (LaneView lane : lanes) {
+                    lane.updateBlocks();
+                }
                 // update game
                 // revalidate and repaint
             }

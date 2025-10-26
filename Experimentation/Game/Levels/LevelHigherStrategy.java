@@ -7,7 +7,7 @@ public class LevelHigherStrategy implements LevelStrategy {
 
     public static final int MAX_MULTIPLIER = 12;
     public static final int MAX_ANSWER = 200;
-    public static final int TRAVEL_TIME = 12;
+    public static final int TRAVEL_TIME_MS = 7_000;
     public static final int SCORE_MULTIPLIER = LEVEL * 100;
 
     LevelHigherStrategy(int level) {
@@ -16,12 +16,7 @@ public class LevelHigherStrategy implements LevelStrategy {
 
     @Override
     public void setTravelTime(LevelStrategyContext context) {
-        context.setTravelTime(TRAVEL_TIME);
-    }
-
-    @Override
-    public void setCurrentLevel(LevelStrategyContext context) {
-        context.setCurrentLevel(LEVEL);
+        context.setTravelTime(TRAVEL_TIME_MS);
     }
 
     @Override
