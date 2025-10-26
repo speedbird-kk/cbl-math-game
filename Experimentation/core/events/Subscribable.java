@@ -9,5 +9,6 @@ public sealed interface Subscribable permits
     OperandsChangedEvent,
     CorrectResponseEvent,
     WrongResponseEvent,
-    GameOverEvent {
+    GameOverEvent,
+    BlockHasHitBottomEvent {
 }

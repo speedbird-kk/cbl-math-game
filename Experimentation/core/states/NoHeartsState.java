@@ -5,7 +5,7 @@ import Experimentation.view.windows.GameWindow;
 import Experimentation.view.windows.factory.EndWindowCreator;
 import Experimentation.view.windows.factory.WindowFactory;
 
-public class NoHeartsState implements GameState {
+public final class NoHeartsState implements GameState {
     @Override
     public void handleRequest(GameStatesContext context) {
         WindowFactory factory = new EndWindowCreator();

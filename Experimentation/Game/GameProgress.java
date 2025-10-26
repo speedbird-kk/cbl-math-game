@@ -60,16 +60,6 @@ public final class GameProgress {
         publishHearts();
     }
 
-    @SubscribesTo(event = CorrectResponseEvent.class)
-    public void incrementBlocksCompleted(CorrectResponseEvent event) {
-        blocksCompleted++;
-
-        if (blocksCompleted > 16) {
-            resetBlocksCompleted();
-            updateLevel();
-        }
-    }
-
     private void resetBlocksCompleted() {
         blocksCompleted = 0;
     }
@@ -103,6 +93,16 @@ public final class GameProgress {
      * .=== Subscribers and publishers ===.
      */
     // region subscribers and publishers
+    @SubscribesTo(event = CorrectResponseEvent.class)
+    public void incrementBlocksCompleted(CorrectResponseEvent event) {
+        blocksCompleted++;
+
+        if (blocksCompleted > 16) {
+            resetBlocksCompleted();
+            updateLevel();
+        }
+    }
+    
     @SubscribesTo(event = BlockHasHitBottomEvent.class)
     public void subtractHeart(BlockHasHitBottomEvent event) {
         if (hearts > 0) {
