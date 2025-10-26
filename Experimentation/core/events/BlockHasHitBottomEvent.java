@@ -9,6 +9,6 @@ import Experimentation.view.components.LaneView;
 
 @PublishedBy(publisher = BlockView.class)
 @SubscribedBy(subscriber = LaneView.class)
-public record BlockHasHitBottomEvent(Block block, LaneType laneType) implements Subscribable {
+public record BlockHasHitBottomEvent(Block block) implements Subscribable {
     
 }

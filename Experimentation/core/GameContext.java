@@ -14,14 +14,13 @@ import javax.swing.JFrame;
 
 public final class GameContext implements
     GameStatesContext, GameLevelStrategyContext, GameModeContext {
-        
+
     private GameProgress progress;
     private MainFrame frame;
     private List<Block> activeBlocks;
     private AllLanes lanes;
     private GameState state;
     private ModeState mode;
-    private LevelContext levelContext;
 
     public void setState(GameState state) {
         this.state = state;

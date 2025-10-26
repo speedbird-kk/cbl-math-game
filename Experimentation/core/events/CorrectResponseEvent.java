@@ -11,6 +11,6 @@ import Experimentation.view.components.LaneView;
 @PublishedBy(publisher = Lane.class)
 @SubscribedBy(subscriber = LaneView.class)
 public record CorrectResponseEvent(
-    Block currentBlock, LaneType laneType, LevelScoringContext context) implements Subscribable {
+    Block currentBlock, LevelScoringContext context) implements Subscribable {
     
 }

@@ -80,7 +80,7 @@ public abstract class Lane implements LaneState {
     @Publishes(event = CorrectResponseEvent.class)
     private void publishCorrect() {
         EventBroker.getInstance().publish(
-            new CorrectResponseEvent(currentBlock, type, levelScoringContext));
+            new CorrectResponseEvent(currentBlock, levelScoringContext));
     }
 
     @Override

@@ -132,15 +132,20 @@ public class LaneView extends JPanel implements ActionListener {
     }
 
     /**
-     * Applies styling to input text field and removes closest block.
+     * Filters to check block is in lane and removes block.
      */
     @SubscribesTo(event = CorrectResponseEvent.class)
     public void correctAnswer(CorrectResponseEvent event) {
-        if (event.laneType() == laneType) {
+        List<BlockView> blocksToRemove = activeBlocks.stream()
+            .filter(blockView -> blockView.getBlock() == event.currentBlock())
+            .collect(Collectors.toList());
+        
+        if (!blocksToRemove.isEmpty()) {
             Style.INPUT_TEXTFIELD_CORRECT.accept(input);
-            BlockView blockToRemove = activeBlocks.get(activeBlocks.size() - 1);
-            this.remove(blockToRemove);
-            activeBlocks.remove(blockToRemove);
+            blocksToRemove.forEach((blockView -> {
+                this.remove(blockView);
+                activeBlocks.remove(blockView);
+            }));
         }
     }
 
@@ -157,10 +162,16 @@ public class LaneView extends JPanel implements ActionListener {
 
     @SubscribesTo(event = BlockHasHitBottomEvent.class)
     public void removeBlockFromLane(BlockHasHitBottomEvent event) {
-        if (event.laneType() == laneType) {
-            BlockView blockToRemove = activeBlocks.get(activeBlocks.size() - 1);
-            this.remove(blockToRemove);
-            activeBlocks.remove(blockToRemove);
+        List<BlockView> blocksToRemove = activeBlocks.stream()
+            .filter(blockView -> blockView.getBlock() == event.block())
+            .collect(Collectors.toList());
+        
+        if (!blocksToRemove.isEmpty()) {
+            Style.INPUT_TEXTFIELD_CORRECT.accept(input);
+            blocksToRemove.forEach((blockView -> {
+                this.remove(blockView);
+                activeBlocks.remove(blockView);
+            }));
         }
     }
     // endregion
