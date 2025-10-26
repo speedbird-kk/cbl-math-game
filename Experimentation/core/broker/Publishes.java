@@ -8,6 +8,7 @@ import java.lang.annotation.Target;
 
 /**
  * Anotation to mark methods that publish a Subscribable event.
+ * Documentation purposes only.
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.SOURCE)

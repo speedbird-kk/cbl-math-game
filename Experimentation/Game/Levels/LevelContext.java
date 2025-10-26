@@ -1,11 +1,15 @@
 package Experimentation.game.levels;
 
-import Experimentation.core.observer.Observer;
-import Experimentation.core.observer.Subject;
+import Experimentation.core.broker.EventBroker;
+import Experimentation.core.broker.Publishes;
+import Experimentation.core.broker.SubscribesTo;
+import Experimentation.core.events.LevelChangedEvent;
+import Experimentation.core.events.TravelTimeChangedEvent;
 import java.util.List;
 
 public final class LevelContext
-    implements LevelStrategyContext, LevelBlockCreatorContext, LevelInformation, Subject {
+    implements LevelStrategyContext, LevelBlockCreatorContext, LevelInformation,
+    LevelScoringContext {
 
     private LevelStrategy strategy;
     private int travelTime;
@@ -16,7 +20,25 @@ public final class LevelContext
     private List<Integer> possibleDifferences;
     private int scoreMultiplier;
 
-    public void setStrategy(LevelStrategy strategy) {
+    /**
+     * Sets strategy on LevelChangedEvent depending on updatedLevel record component.
+     */
+    @SubscribesTo(event = LevelChangedEvent.class)
+    public void setStrategy(LevelChangedEvent event) {
+        int updatedLevel = event.updatedLevel();
+
+        if (updatedLevel == 1) {
+            setStrategy(new LevelOneStrategy());
+        } else if (updatedLevel == 2) {
+            setStrategy(new LevelTwoStrategy());
+        } else if (updatedLevel == 3) {
+            setStrategy(new LevelThreeStrategy());
+        } else if (updatedLevel > 3) {
+            setStrategy(new LevelHigherStrategy(updatedLevel));
+        }
+    }
+
+    private void setStrategy(LevelStrategy strategy) {
         this.strategy = strategy;
     }
 
@@ -24,13 +46,17 @@ public final class LevelContext
      * .=== Implementations of abstract methods inherited from LevelStrategyContext ===.
      */
     @Override
+    @Publishes(event = TravelTimeChangedEvent.class)
     public void setTravelTime(int travelTime) {
         this.travelTime = travelTime;
+        EventBroker.getInstance().publish(new TravelTimeChangedEvent(travelTime));
     }
 
     @Override
+    @Publishes(event = LevelChangedEvent.class)
     public void setCurrentLevel(int currentLevel) {
         this.currentLevel = currentLevel;
+        EventBroker.getInstance().publish(new LevelChangedEvent(currentLevel));
     }
 
     @Override
@@ -95,20 +121,10 @@ public final class LevelContext
     }
 
     /**
-     * .=== Implementations of abstract methods inherited from Subject ===.
+     * .=== Implementations of abstract methods inherited from LevelScoringContext ===.
      */
     @Override
-    public void attach(Observer observer) {
-
-    }
-
-    @Override
-    public void detach(Observer observer) {
-
-    }
-
-    @Override
-    public void notifyObservers() {
-
+    public int getScoreMultiplier() {
+        return scoreMultiplier;
     }
 }

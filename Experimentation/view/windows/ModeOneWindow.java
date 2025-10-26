@@ -1,5 +1,7 @@
 package Experimentation.view.windows;
 
+import Experimentation.components.lanes.LaneType;
+import Experimentation.core.events.BlockCreatedEvent;
 import Experimentation.core.observer.Observer;
 import Experimentation.core.observer.Subject;
 import Experimentation.game.GameProgress;
@@ -9,10 +11,15 @@ import Experimentation.view.components.LaneView;
 import Experimentation.view.components.LevelLabel;
 import Experimentation.view.components.ScoreLabel;
 import Experimentation.view.styles.constants.DimensionConstants;
+import Experimentation.view.styles.constants.TimerConstants;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
-public class ModeOneWindow implements GameWindow, Observer {
+public class ModeOneWindow implements GameWindow {
     private final JPanel panel;
     private JPanel lanesPanel;
     private List<LaneView> lanes;
@@ -23,8 +30,12 @@ public class ModeOneWindow implements GameWindow, Observer {
     public ModeOneWindow() {
         panel = new JPanel();
 
-        for (int i = 0; i < 4; i++) {
-            LaneView lane = new LaneView(i * DimensionConstants.LANE.get().width);
+        for (int i = 0; i < LaneType.values().length; i++) {
+            LaneView lane = new LaneView(
+                LaneType.values()[i],
+                i * DimensionConstants.LANE.get().width
+            );
+            
             lanes.add(lane);
             lanesPanel.add(lane);
         }
@@ -47,8 +58,14 @@ public class ModeOneWindow implements GameWindow, Observer {
         panel.setVisible(false);
     }
 
-    @Override
-    public void update(Subject subject) {
-        // scoreLabel = new ScoreLabel(subject.)
+    public void update() {
+        ActionListener performer = new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                // update game
+                // revalidate and repaint
+            }
+        };
+
+        new Timer(TimerConstants.DELAY_MS.get(), performer).start();
     }
 }

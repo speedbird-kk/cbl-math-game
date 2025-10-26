@@ -2,16 +2,12 @@ package Experimentation.core.events;
 
 import Experimentation.components.block.Block;
 import Experimentation.components.lanes.Lane;
-import Experimentation.components.lanes.LaneType;
 import Experimentation.core.broker.PublishedBy;
 import Experimentation.core.broker.SubscribedBy;
 import Experimentation.view.components.LaneView;
 
-/**
- * Event published when new block created by lane.
- */
 @PublishedBy(publisher = Lane.class)
 @SubscribedBy(subscriber = LaneView.class)
-public record BlockCreatedEvent(Block block, LaneType laneType) implements Subscribable {
+public record WrongResponseEvent(Block currentBlock) implements Subscribable {
     
 }

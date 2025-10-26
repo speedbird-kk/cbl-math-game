@@ -4,6 +4,10 @@ public sealed interface Subscribable permits
     BlockCreatedEvent,
     ScoreChangedEvent,
     LevelChangedEvent,
+    TravelTimeChangedEvent,
     HeartChangedEvent,
-    OperandsChangedEvent {
+    OperandsChangedEvent,
+    CorrectResponseEvent,
+    WrongResponseEvent,
+    GameOverEvent {
 }

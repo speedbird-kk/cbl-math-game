@@ -34,4 +34,11 @@ public class BlockView extends JPanel {
 
         this.setBounds(BoundsConstants.BLOCK_BOUNDS.get());
     }
+
+    /**
+     * Block positions itself down with timer.
+     * Update speed method that subscribes to TravelTimeChangedEvent.
+     * Method to detect when block hits bottom of the lane,
+     * then we setBlockHasHitBottom to true.
+     */
 }

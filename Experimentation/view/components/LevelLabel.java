@@ -25,4 +25,8 @@ public class LevelLabel extends JLabel {
     public void updateLevel(LevelChangedEvent event) {
         this.setText("Level " + event.updatedLevel());
     }
+
+    public void deregister() {
+        EventBroker.getInstance().unsubscribe(LevelChangedEvent.class, this::updateLevel);
+    }
 }

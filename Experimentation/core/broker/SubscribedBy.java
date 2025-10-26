@@ -1,20 +1,19 @@
 package Experimentation.core.broker;
 
-import Experimentation.core.events.Subscribable;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotation to mark methods that subscribe to a Subscribable event.
+ * Annotation to mark events with its subscriber.
  * Documentation purposes only.
  */
-@Target(ElementType.METHOD)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
-public @interface SubscribesTo {
+public @interface SubscribedBy {
     /**
-     * Subscribable event method is subscribed to.
+     * Subscriber of the Subscribable event.
      */
-    Class<? extends Subscribable> event();
+    Class<?> subscriber();
 }
