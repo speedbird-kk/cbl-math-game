@@ -3,13 +3,12 @@ package Experimentation.game;
 import Experimentation.core.broker.EventBroker;
 import Experimentation.core.broker.Publishes;
 import Experimentation.core.broker.SubscribesTo;
+import Experimentation.core.events.BlockHasHitBottomEvent;
 import Experimentation.core.events.CorrectResponseEvent;
 import Experimentation.core.events.GameOverEvent;
 import Experimentation.core.events.HeartChangedEvent;
 import Experimentation.core.events.LevelChangedEvent;
 import Experimentation.core.events.ScoreChangedEvent;
-import Experimentation.core.events.TravelTimeChangedEvent;
-import Experimentation.core.events.WrongResponseEvent;
 import Experimentation.game.levels.LevelContext;
 
 /**
@@ -30,9 +29,10 @@ public final class GameProgress {
         levelContext = new LevelContext();
         EventBroker broker = EventBroker.getInstance();
 
-        broker.subscribe(WrongResponseEvent.class, this::subtractHeart);
+        broker.subscribe(BlockHasHitBottomEvent.class, this::subtractHeart);
         broker.subscribe(GameOverEvent.class, this::removeHearts);
         broker.subscribe(CorrectResponseEvent.class, this::incrementScore);
+        broker.subscribe(CorrectResponseEvent.class, this::incrementBlocksCompleted);
 
         broker.subscribe(LevelChangedEvent.class, levelContext::onLevelChanged);
     }
@@ -60,7 +60,8 @@ public final class GameProgress {
         publishHearts();
     }
 
-    public void incrementBlocksCompleted() {
+    @SubscribesTo(event = CorrectResponseEvent.class)
+    public void incrementBlocksCompleted(CorrectResponseEvent event) {
         blocksCompleted++;
 
         if (blocksCompleted > 16) {
@@ -69,7 +70,7 @@ public final class GameProgress {
         }
     }
 
-    public void resetBlocksCompleted() {
+    private void resetBlocksCompleted() {
         blocksCompleted = 0;
     }
 
@@ -102,8 +103,8 @@ public final class GameProgress {
      * .=== Subscribers and publishers ===.
      */
     // region subscribers and publishers
-    @SubscribesTo(event = WrongResponseEvent.class)
-    public void subtractHeart(WrongResponseEvent event) {
+    @SubscribesTo(event = BlockHasHitBottomEvent.class)
+    public void subtractHeart(BlockHasHitBottomEvent event) {
         if (hearts > 0) {
             hearts--;
         }

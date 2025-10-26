@@ -1,9 +1,14 @@
 package Experimentation.view.components;
 
 import Experimentation.components.block.Block;
+import Experimentation.core.broker.EventBroker;
+import Experimentation.core.broker.Publishes;
+import Experimentation.core.events.BlockHasHitBottomEvent;
 import Experimentation.view.styles.Style;
 import Experimentation.view.styles.constants.BoundsConstants;
 import Experimentation.view.styles.constants.DimensionConstants;
+import Experimentation.view.styles.constants.LengthConstants;
+
 import java.awt.BorderLayout;
 import java.awt.Point;
 
@@ -38,16 +43,15 @@ public class BlockView extends JPanel {
         this.setBounds(BoundsConstants.BLOCK_BOUNDS.get());
     }
 
-    /**
-     * Block positions itself down with timer.
-     * Update speed method that subscribes to TravelTimeChangedEvent.
-     * Method to detect when block hits bottom of the lane,
-     * then we setBlockHasHitBottom to true.
-     */
-
+    @Publishes(event = BlockHasHitBottomEvent.class)
     public void moveDown(int deltaY) {
         Point location = getLocation();
-        setLocation(location.x, location.y + deltaY);
+        if (location.y + deltaY > LengthConstants.BLOCK_TRAVEL_DISTANCE.get()) {
+            // TODO: Constructor BlockHasHitBottomEvent must have LaneType, how to reference ??
+            EventBroker.getInstance().publish(new BlockHasHitBottomEvent(block));
+        } else {
+            setLocation(location.x, location.y + deltaY);
+        }
     }
 
     public Block getBlock() {

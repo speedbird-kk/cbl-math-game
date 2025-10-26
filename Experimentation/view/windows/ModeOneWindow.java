@@ -27,6 +27,8 @@ public class ModeOneWindow implements GameWindow {
     private GameProgress progress;
 
     public ModeOneWindow() {
+        // NOTE: Make sure GameProgress and its LevelContext are initialised first !
+
         panel = new JPanel();
 
         for (int i = 0; i < LaneType.values().length; i++) {

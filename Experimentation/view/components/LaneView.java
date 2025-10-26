@@ -5,6 +5,7 @@ import Experimentation.components.lanes.LaneType;
 import Experimentation.core.broker.EventBroker;
 import Experimentation.core.broker.SubscribesTo;
 import Experimentation.core.events.BlockCreatedEvent;
+import Experimentation.core.events.BlockHasHitBottomEvent;
 import Experimentation.core.events.CorrectResponseEvent;
 import Experimentation.core.events.TravelTimeChangedEvent;
 import Experimentation.core.events.WrongResponseEvent;
@@ -29,7 +30,7 @@ import javax.swing.JTextField;
 
 public class LaneView extends JPanel implements ActionListener {
     private static final int DEFAULT_TRAVEL_TIME_MS = LevelOneStrategy.TRAVEL_TIME_MS;
-    
+
     private final JLabel operand;
     private final JTextField input;
     private final LaneType laneType;
@@ -72,9 +73,43 @@ public class LaneView extends JPanel implements ActionListener {
         broker.subscribe(CorrectResponseEvent.class, this::correctAnswer);
     }
 
+    public void updateBlocks() {
+        for (BlockView activeBlock : activeBlocks) {
+            activeBlock.moveDown(deltaY);
+        }
+    }
+
+    public void actionPerformed(ActionEvent evt) {
+        rawInput = input.getText();
+    }
+
     /**
-     * Adds a new block on event if it is of the same lane type as this.
+     * .=== Getters ===.
      */
+    // region getters
+    public LaneType getLaneType() {
+        return laneType;
+    }
+
+    public List<BlockView> getActiveBlocks() {
+        return activeBlocks;
+    }
+
+    public int getDeltaY() {
+        return deltaY;
+    }
+
+    public String getRawInput() {
+        return rawInput;
+    }
+    // endregion
+
+    /**
+     * .=== Subscribers and publishers ===.
+     */
+    // region subscribers and publishers
+
+    // Adds a new block on event if it is of the same lane type as this.
     @SubscribesTo(event = BlockCreatedEvent.class)
     public void addBlockToLane(BlockCreatedEvent event) {
         if (event.laneType() == laneType) {
@@ -97,20 +132,15 @@ public class LaneView extends JPanel implements ActionListener {
     }
 
     /**
-     * Filters to check block is in lane and removes block.
+     * Applies styling to input text field and removes closest block.
      */
     @SubscribesTo(event = CorrectResponseEvent.class)
     public void correctAnswer(CorrectResponseEvent event) {
-        List<BlockView> blocksToRemove = activeBlocks.stream()
-            .filter(blockView -> blockView.getBlock().equals(event.currentBlock()))
-            .collect(Collectors.toList());
-        
-        if (!blocksToRemove.isEmpty()) {
+        if (event.laneType() == laneType) {
             Style.INPUT_TEXTFIELD_CORRECT.accept(input);
-            blocksToRemove.forEach((blockView -> {
-                this.remove(blockView);
-                activeBlocks.remove(blockView);
-            }));
+            BlockView blockToRemove = activeBlocks.get(activeBlocks.size() - 1);
+            this.remove(blockToRemove);
+            activeBlocks.remove(blockToRemove);
         }
     }
 
@@ -125,29 +155,13 @@ public class LaneView extends JPanel implements ActionListener {
             * TimerConstants.DELAY_MS.get();
     }
 
-    public void updateBlocks() {
-        for (BlockView activeBlock : activeBlocks) {
-            activeBlock.moveDown(deltaY);
+    @SubscribesTo(event = BlockHasHitBottomEvent.class)
+    public void removeBlockFromLane(BlockHasHitBottomEvent event) {
+        if (event.laneType() == laneType) {
+            BlockView blockToRemove = activeBlocks.get(activeBlocks.size() - 1);
+            this.remove(blockToRemove);
+            activeBlocks.remove(blockToRemove);
         }
     }
-
-    public void actionPerformed(ActionEvent evt) {
-        rawInput = input.getText();
-    }
-
-    public LaneType getLaneType() {
-        return laneType;
-    }
-
-    public List<BlockView> getActiveBlocks() {
-        return activeBlocks;
-    }
-
-    public int getDeltaY() {
-        return deltaY;
-    }
-
-    public String getRawInput() {
-        return rawInput;
-    }
+    // endregion
 }

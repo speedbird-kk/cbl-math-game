@@ -22,12 +22,13 @@ public abstract class Lane implements LaneState {
     protected int response;
 
     protected Lane(int operand, LaneType type, String operationSymbol,
-        BlockCreatorStrategy blockCreatorStrategy) {
+        BlockCreatorStrategy blockCreatorStrategy, LevelScoringContext levelScoringContext) {
 
         this.operand = operand;
         this.type = type;
         this.operationSymbol = operationSymbol;
         this.blockCreatorStrategy = blockCreatorStrategy;
+        this.levelScoringContext = levelScoringContext;
     }
 
     public void setResponse(int response) {
@@ -79,7 +80,7 @@ public abstract class Lane implements LaneState {
     @Publishes(event = CorrectResponseEvent.class)
     private void publishCorrect() {
         EventBroker.getInstance().publish(
-            new CorrectResponseEvent(currentBlock, levelScoringContext));
+            new CorrectResponseEvent(currentBlock, type, levelScoringContext));
     }
 
     @Override
