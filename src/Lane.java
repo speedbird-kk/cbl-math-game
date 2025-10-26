@@ -29,7 +29,7 @@ public class Lane extends JPanel {
     JTextField inputField;
 
     ArrayDeque<Block> blocks = new ArrayDeque<Block>();
-    ArrayDeque<Integer> submissions = new ArrayDeque<Integer>();
+    ArrayDeque<Double> submissions = new ArrayDeque<Double>();
 
     Lane(int x, int y,int amount, GameContext gameContext) {
         this.gameContext = gameContext;
@@ -67,7 +67,7 @@ public class Lane extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    int textFieldNumber = Integer.parseInt(inputField.getText().trim());
+                    double textFieldNumber = Double.parseDouble(inputField.getText().trim());
                     addSolution(textFieldNumber);
                     inputField.setText("");
                 } catch (NumberFormatException ex) {
@@ -87,7 +87,7 @@ public class Lane extends JPanel {
         this.add(inputField);
     }
 
-    public void addSolution(int n){
+    public void addSolution(double n){
         submissions.add(n);
     }
     public void setOpAmount(int amount){
@@ -117,7 +117,7 @@ class AdditionLane extends Lane{
         //TODO Auto-generated constructor stub
     }
     @Override
-    public void addSolution(int n){
+    public void addSolution(double n){
         submissions.add(n + super.amount);
     }
     @Override
@@ -132,7 +132,7 @@ class SubtractionLane extends Lane{
         //TODO Auto-generated constructor stub
     }
     @Override
-    public void addSolution(int n){
+    public void addSolution(double n){
         submissions.add(n - super.amount);
     }
     @Override
@@ -147,7 +147,7 @@ class MultiplicationLane extends Lane{
         //TODO Auto-generated constructor stub
     }
     @Override
-    public void addSolution(int n){
+    public void addSolution(double n){
         submissions.add(n * super.amount);
     }
     @Override
@@ -168,7 +168,7 @@ class DivisionLane extends Lane{
         //TODO Auto-generated constructor stub
     }
     @Override
-    public void addSolution(int n){
+    public void addSolution(double n){
         submissions.add(n / super.amount);
     }
     @Override

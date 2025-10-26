@@ -11,7 +11,7 @@ public class GameContext {
 
     int InitialNumberOfHearts = 5;
 
-    double blockTravelTimeS = 20;
+    double blockTravelTimeS = 17;
 
     GameContext(double frameWidth, double frameHeight) {}
 }

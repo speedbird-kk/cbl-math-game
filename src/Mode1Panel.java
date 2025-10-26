@@ -133,7 +133,7 @@ public class Mode1Panel extends JPanel {
     int blocksLeft = 1;
     int blocksDestroyed = 0;
     int blocksDestroyedLevel = 0;
-    double secondsBetweenBlocks = 13;
+    double secondsBetweenBlocks = 10;
 
     void timeUpdate(int timeElapsedMs) {
         timePassedMs += timeElapsedMs;
@@ -153,7 +153,7 @@ public class Mode1Panel extends JPanel {
         if (levelTimePassedMs > aux * 1000 * secondsBetweenBlocks) {
             if (blocksLeft > 0) {
                 Lane lane = lanes.get(random.nextInt(4));
-                lane.addBlock(random.nextInt(targetNumberOfBlocks * (level + 1)));
+                lane.addBlock(random.nextInt(targetNumberOfBlocks ));
                 blocksLeft--;
             }
 
