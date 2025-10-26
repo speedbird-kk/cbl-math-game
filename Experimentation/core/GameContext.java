@@ -6,17 +6,21 @@ import Experimentation.components.lanes.AllLanes;
 import Experimentation.game.GameProgress;
 import Experimentation.game.levels.LevelContext;
 import Experimentation.core.states.GameState;
+import Experimentation.core.states.ModeState;
 
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 
-public final class GameContext implements GameStatesContext, GameLevelStrategyContext {
+public final class GameContext implements
+    GameStatesContext, GameLevelStrategyContext, GameModeContext {
+        
     private GameProgress progress;
     private MainFrame frame;
     private List<Block> activeBlocks;
     private AllLanes lanes;
     private GameState state;
+    private ModeState mode;
     private LevelContext levelContext;
 
     public void setState(GameState state) {
@@ -40,5 +44,10 @@ public final class GameContext implements GameStatesContext, GameLevelStrategyCo
     @Override
     public AllLanes getLanes() {
         return lanes;
+    }
+
+    @Override
+    public ModeState getMode() {
+        return mode;
     }
 }

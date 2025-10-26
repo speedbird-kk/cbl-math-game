@@ -8,7 +8,7 @@ import Experimentation.view.windows.GameWindow;
 import Experimentation.view.windows.factory.ModeTwoWindowCreator;
 import Experimentation.view.windows.factory.WindowFactory;
 
-public class ModeTwoState implements GameState {
+public final class ModeTwoState implements GameState, ModeStates {
     @Override
     public void handleRequest(GameStatesContext context) {
         WindowFactory factory = new ModeTwoWindowCreator();

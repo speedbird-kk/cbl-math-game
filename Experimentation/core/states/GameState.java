@@ -2,6 +2,8 @@ package Experimentation.core.states;
 
 import Experimentation.core.GameStatesContext;
 
-public interface GameState {
+public sealed interface GameState permits
+    LevelTransitionState, ModeOneState, ModeTwoState, NoHeartsState, PauseState {
+        
     void handleRequest(GameStatesContext context);
 }

@@ -5,6 +5,8 @@ import Experimentation.view.styles.Style;
 import Experimentation.view.styles.constants.BoundsConstants;
 import Experimentation.view.styles.constants.DimensionConstants;
 import java.awt.BorderLayout;
+import java.awt.Point;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -12,6 +14,7 @@ public class BlockView extends JPanel {
     private final Block block;
     private final int x;
     private int y;
+    private int travelTime;
 
     public BlockView(Block block) {
         this.block = block;
@@ -41,4 +44,13 @@ public class BlockView extends JPanel {
      * Method to detect when block hits bottom of the lane,
      * then we setBlockHasHitBottom to true.
      */
+
+    public void moveDown(int deltaY) {
+        Point location = getLocation();
+        setLocation(location.x, location.y + deltaY);
+    }
+
+    public Block getBlock() {
+        return block;
+    }
 }

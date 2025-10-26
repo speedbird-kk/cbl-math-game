@@ -14,17 +14,12 @@ import Experimentation.core.GameLevelStrategyContext;
 public class LevelOneStrategy implements LevelStrategy {
     public static final int MAX_MULTIPLIER = 10;
     public static final int MAX_ANSWER = 100;
-    public static final int TRAVEL_TIME = 20;
+    public static final int TRAVEL_TIME_MS = 10_000;
     public static final int SCORE_MULTIPLIER = 100;
 
     @Override
     public void setTravelTime(LevelStrategyContext context) {
-        context.setTravelTime(TRAVEL_TIME);
-    }
-
-    @Override
-    public void setCurrentLevel(LevelStrategyContext context) {
-        context.setCurrentLevel(1);
+        context.setTravelTime(TRAVEL_TIME_MS);
     }
 
     @Override

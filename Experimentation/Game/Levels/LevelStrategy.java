@@ -3,9 +3,7 @@ package Experimentation.game.levels;
 import Experimentation.core.GameLevelStrategyContext;
 
 public interface LevelStrategy {
-    public void setTravelTime(LevelStrategyContext context);
-
-    public void setCurrentLevel(LevelStrategyContext context);
+    public void setTravelTime(LevelStrategyContext levelContext);
 
     public void setProductLaneNumbers(
         LevelStrategyContext levelContext, GameLevelStrategyContext gameContext

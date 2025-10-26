@@ -7,8 +7,9 @@ import java.lang.annotation.Target;
 
 /**
  * Anotation to mark event with its publisher.
+ * Documentation purposes only.
  */
-@Target(ElementType.MODULE)
+@Target(ElementType.TYPE)
 @Retention(RetentionPolicy.SOURCE)
 public @interface PublishedBy {
     /**
