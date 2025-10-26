@@ -16,6 +16,12 @@ Features to test:
 
 Our two chosen topics were UML class diagrams and design patterns.
 PLEASE NOTE: The code in src/ is a working prototype. We have also developed a separate program towards the same goals in Experimentation/ folder, but the code in that package focuses more on applying SOLID design principles, design patterns and program architecture. It is the result of what we have learned about these topics, however the program itself is not working yet. It is incomplete. For a working version, please refer to the code in src/.
+The UML diagram for the program in Experimentation/ can be found in the root directory. It is also regretfully incomplete as of assignment submission. A completed version will be available on github soon.
+The swing_cheatsheet.md contains personal learning for swing based on previous experience with javascript and CSS.
+
+Resources:
+- Gamma E, Helm R, Johnson R, Vlissides J _Design Patterns: Elements of Reusable Object-Oriented Software_
+- Martin RC, _UML for Java Programmers_
 
 ### Design patterns
 
@@ -72,3 +78,4 @@ Singletons are useful when a globally shared single instance should be used for 
 #### 5. / 6. Observer and Mediator
 
 Observer patterns are essential for bridging together the decoupled systems of the logic and the GUI to have them come together in the swing loop. Certain events such as a correct answer, a block hitting the bottom of the lane, a level up, a score changing and so on need to trigger another component to act on it and modules of the GUI and its corresponding logic module must have the same state. For example, the score in `GameProgress` must reflect the score displayed in `ScoreLabel` GUI and vice versa. Ideally, this is done without coupling the two modules with each other. The mediator pattern allows us to do this, as instead of having modules communicate with each other, we have a central module which handles all communications. In particular, we used an adaptation of the observer and mediator pattern combined from the Design Pattern books, looking into alternatives specifically for event driven design. Here, components are able to publish events to an event broker which keeps a list of subscribers to each event. When events are published by the publishers, the broker looks through the list of all components subscribed to that event and notifies all of them. In our implementation a `Consumer` functional interface is used so that the broker can directly invoke the subscribers' methods for each event type.
+
