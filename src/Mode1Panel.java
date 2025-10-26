@@ -202,7 +202,7 @@ class HeartDisplay extends JPanel {
     int panelHeight;
     int heartWidth;
     int heartHeight;
-    int numberOfHearts = 0;
+    int numberOfHearts = 5;
 
     ArrayDeque<Heart> hearts = new ArrayDeque<HeartDisplay.Heart>();
 
