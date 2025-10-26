@@ -148,8 +148,6 @@ public class Mode1Panel extends JPanel {
             blocksDestroyedLevel = 0;
             gameContext.blockTravelTimeS -= 5.0 / level;
             secondsBetweenBlocks -= 3.0 / level;
-            System.out.println("traveltime:" + gameContext.blockTravelTimeS);
-            System.out.println("secbet:" + secondsBetweenBlocks);
         }
 
         if (levelTimePassedMs > aux * 1000 * secondsBetweenBlocks) {
@@ -164,7 +162,7 @@ public class Mode1Panel extends JPanel {
 
         for (Lane lane : lanes) {
             while (!lane.submissions.isEmpty()) {
-                int submission = lane.submissions.poll();
+                double submission = lane.submissions.poll();
                 Block firstBlock = lane.blocks.peek();
                 if (firstBlock != null) {
                     if (submission == firstBlock.number) {
@@ -174,7 +172,6 @@ public class Mode1Panel extends JPanel {
                     }
                 }
             }
-            // System.out.println(enteredNumber);
             for (Block block : lane.blocks) {
                 block.timeUpdate(timeElapsedMs, gameContext);
 
@@ -223,7 +220,6 @@ class HeartDisplay extends JPanel {
     public void addHeart() {
         numberOfHearts++;
         if (numberOfHearts > panelWidth / heartWidth) {
-            System.out.println("Heart overflow!");
         }
     }
     public void removeHeart() {

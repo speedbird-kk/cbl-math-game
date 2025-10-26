@@ -70,7 +70,6 @@ public class Lane extends JPanel {
                     int textFieldNumber = Integer.parseInt(inputField.getText().trim());
                     addSolution(textFieldNumber);
                     inputField.setText("");
-                    System.out.println("Number set to: " + textFieldNumber);
                 } catch (NumberFormatException ex) {
                     System.out.println("Not a valid number!");
                 }

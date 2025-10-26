@@ -76,9 +76,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void updateGame(int timeElapsedMs) {
-        if (keyH.wPressed) {
-            timeElapsedMs *= 10;
-        }
         if (gameContext.state == 0) {
             loadState1();
         }
