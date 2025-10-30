@@ -16,7 +16,7 @@ Features to test:
 
 Our two chosen topics were UML class diagrams and design patterns.
 PLEASE NOTE: The code in src/ is a working prototype. We have also developed a separate program towards the same goals in Experimentation/ folder, but the code in that package focuses more on applying SOLID design principles, design patterns and program architecture. It is the result of what we have learned about these topics, however the program itself is not working yet. It is incomplete. For a working version, please refer to the code in src/.
-The UML diagram for the program in Experimentation/ can be found in the root directory. It is also regretfully incomplete as of assignment submission. A completed version will be available on github soon.
+The UML diagram for the program in Experimentation/ can be found in the root directory on the file `UML Class Diagram 1.pdf`. It is the UML class diagram for the program in its current form and may be subject to change in the future.
 The swing_cheatsheet.md contains personal learning for swing based on previous experience with javascript and CSS.
 
 Resources:
